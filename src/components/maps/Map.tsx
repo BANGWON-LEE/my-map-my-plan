@@ -1,7 +1,9 @@
 'use client'
 
 import {
-  infowindow,
+  // getMapOptions,
+  // infowindow,
+  myMarker,
   onLoadMap,
   setGeolocationOnMap,
 } from '@/actions/map-action/mapFunctions'
@@ -12,40 +14,39 @@ export default function Map() {
   // const mapRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-    const map = onLoadMap()
-
     if (typeof window !== 'undefined') {
-      // onLoadMap()
-      setGeolocationOnMap()
+      // const map = onLoadMap()
+      navigator.geolocation.getCurrentPosition(setGeolocationOnMap)
     }
-
-    return () => {
-      //   onLoadMap()
-      console.log('check!!', map.destroy())
-      map.destroy()
-    }
-  }, [])
+  })
 
   function getMyLocation(position: GeolocationPosition) {
-    const map = onLoadMap()
-    const infoMark = infowindow()
+    console.log('qqqqq')
+    const map = onLoadMap(position)
+    // const infoMark = infowindow()
 
     const location = new naver.maps.LatLng(
       position.coords.latitude,
       position.coords.longitude
     )
 
-    naver.maps.Event.once(map, 'init', function () {
+    naver.maps.Event.once(map, 'init', () => {
       map.setCenter(location)
     })
-    infoMark.open(map, location)
+    // infoMark.open(map, location)
+    myMarker(map, position)
   }
 
+  const getMyPosition = () => {
+    console.log('qweeees')
+    navigator.geolocation.getCurrentPosition(getMyLocation)
+  }
   return (
     <div className="w-full h-full">
       <BlueRoundedBtnV1
-        onClick={() => navigator.geolocation.getCurrentPosition(getMyLocation)}
-        text={'Me'}
+        onClick={getMyPosition}
+        // onClick={() => getMyLocation(null)}
+        text={'Find Me'}
         btnPosition={'absolute z-10'}
       />
       <div id="map" className="w-full h-full"></div>
