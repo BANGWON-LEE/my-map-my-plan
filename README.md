@@ -1,37 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📍 myMap myPlan (가제) - 지도 기반 콘텐츠 탐색 플랫폼
 
-## Getting Started
+> 사용자가 **장소를 검색하면**, 해당 장소의 **이미지, 영상, 위치, 길찾기, 택시 이동**까지 한 번에 확인할 수 있는 **로컬 콘텐츠 탐색 웹앱**입니다.  
+> `Next.js`, `SWR`, `PWA`, `OAuth`, `Naver Maps API`, `YouTube`, `Flickr` 등 다양한 기술을 통합한 **실전형 포트폴리오 프로젝트**입니다.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 프로젝트 소개
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **위치 기반** 검색과 콘텐츠 탐색을 통합한 실사용 중심 앱
+- 네이버 지도 API를 사용한 장소 검색/렌더링
+- Flickr API & YouTube API를 통한 시각 콘텐츠 연동
+- **SWR 기반 데이터 캐싱** 및 성능 최적화
+- **카카오 T & 네이버 지도 길찾기 연동** UX
+- **PWA 설치 지원**, 모바일에서도 앱처럼 사용 가능
+- **네이버 OAuth 로그인**을 통한 사용자 인증
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🧰 사용 기술 스택
 
-## Learn More
+| 범주 | 기술 |
+|------|------|
+| 프레임워크 | Next.js 14 (App Router) |
+| 언어 | TypeScript |
+| 상태 관리 | SWR |
+| 지도 API | Naver Map JavaScript API |
+| 외부 API | Flickr API, YouTube Data API |
+| 인증 | NextAuth.js + Naver OAuth |
+| UI | Tailwind CSS, Framer Motion |
+| 설치형 웹앱 | next-pwa, manifest.json |
+| 배포 | Vercel |
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# my-map-my-plan
+## 📦 주요 기능
+{ ● : 완료, ▲ : 부분완성, x : 미완성 }
+- [▲] 장소 검색 및 지도 마커 렌더링
+- [●] 현재 위치 확인 (GPS)
+- [x] Flickr 이미지, YouTube 영상 탐색
+- [x] 장소 클릭 시 **바텀시트 패널**로 콘텐츠 표시
+- [x] 카카오 T 연동 (텍스트 복사 + 앱 실행)
+- [x] 네이버 지도 길찾기 연동
+- [x] 네이버 로그인 (OAuth)
+- [x] PWA 설치 대응
