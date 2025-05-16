@@ -15,15 +15,12 @@ export default function Map() {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      // const map = onLoadMap()
       navigator.geolocation.getCurrentPosition(setGeolocationOnMap)
     }
   })
 
   function getMyLocation(position: GeolocationPosition) {
-    console.log('qqqqq')
     const map = onLoadMap(position)
-    // const infoMark = infowindow()
 
     const location = new naver.maps.LatLng(
       position.coords.latitude,
@@ -37,14 +34,10 @@ export default function Map() {
     myMarker(map, position)
   }
 
-  const getMyPosition = () => {
-    console.log('qweeees')
-    navigator.geolocation.getCurrentPosition(getMyLocation)
-  }
   return (
     <div className="w-full h-full">
       <BlueRoundedBtnV1
-        onClick={getMyPosition}
+        onClick={() => navigator.geolocation.getCurrentPosition(getMyLocation)}
         // onClick={() => getMyLocation(null)}
         text={'Find Me'}
         btnPosition={'absolute z-10'}
