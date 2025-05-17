@@ -1,6 +1,7 @@
 'use client'
 
 import {
+  // getPlaceLocation,
   // getMapOptions,
   // infowindow,
   myMarker,
@@ -8,7 +9,7 @@ import {
   setGeolocationOnMap,
 } from '@/actions/map-action/mapFunctions'
 import { useEffect } from 'react'
-import BlueRoundedBtnV1 from './button/BlueRoundedBtnV1'
+import BlueRoundedBtnV1 from '../common/button/BlueRoundedBtnV1'
 
 export default function Map() {
   // const mapRef = useRef<HTMLDivElement | null>(null)
@@ -16,6 +17,9 @@ export default function Map() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       navigator.geolocation.getCurrentPosition(setGeolocationOnMap)
+      // addEventListener('load', getPlaceLocation)
+      // addEventListener('load2', )
+      // console.log('load map list', getPlaceLocation())
     }
   })
 
@@ -36,12 +40,13 @@ export default function Map() {
 
   return (
     <div className="w-full h-full">
+      {/* <div className="absolute left-1"> */}
       <BlueRoundedBtnV1
         onClick={() => navigator.geolocation.getCurrentPosition(getMyLocation)}
-        // onClick={() => getMyLocation(null)}
         text={'Find Me'}
-        btnPosition={'absolute z-10'}
+        btnPosition={'absolute bottom-16 right-6 z-10'}
       />
+      {/* </div> */}
       <div id="map" className="w-full h-full"></div>
     </div>
   )
