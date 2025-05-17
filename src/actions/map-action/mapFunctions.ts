@@ -4,7 +4,6 @@ export const getMapOptions = (position: GeolocationPosition) => {
       position.coords.latitude,
       position.coords.longitude
     ),
-    // center: new naver.maps.LatLng(37.1666805, 126.4784147),
     zoom: 18,
     mapTypeId: naver.maps.MapTypeId.NORMAL,
   }
@@ -61,4 +60,22 @@ function onSuccessGeolocation(position: GeolocationPosition) {
   map.setZoom(18) // 지도의 줌 레벨을 변경합니다.
   myMarker(map, position)
   // infoMark.open(map, location)
+}
+
+export function getPlaceLocation() {
+  const placeList = naver.maps.Service.geocode(
+    {
+      query: '서정동',
+    },
+    (status, response) => {
+      if (status !== naver.maps.Service.Status.OK) {
+        return alert('장소를 찾을 수 없습니다.')
+      }
+
+      const result = response.v2 // 검색 결과의 컨테이너
+      return result.addresses // 검색 결과의 배열
+    }
+  )
+
+  return placeList
 }
