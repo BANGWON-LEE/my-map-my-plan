@@ -1,9 +1,25 @@
+import { simplePosition } from '@/type/marker'
+import { checkEmptyString } from '../common/common'
+
 export const getMapOptions = (position: GeolocationPosition) => {
+  // const checkPositionType = 'coords' in position
+
+  const x = position.coords.latitude
+  const y = position.coords.longitude
+
   return {
-    center: new naver.maps.LatLng(
-      position.coords.latitude,
-      position.coords.longitude
-    ),
+    center: new naver.maps.LatLng(x, y),
+    zoom: 18,
+    mapTypeId: naver.maps.MapTypeId.NORMAL,
+  }
+}
+
+export const getSearchMapOptions = (position: simplePosition) => {
+  const x = Number(position.x)
+  const y = Number(position.y)
+
+  return {
+    center: new naver.maps.LatLng(y, x),
     zoom: 18,
     mapTypeId: naver.maps.MapTypeId.NORMAL,
   }
@@ -17,7 +33,13 @@ export const infowindow = () =>
 export const onLoadMap = (position: GeolocationPosition) =>
   new naver.maps.Map('map', getMapOptions(position))
 
-export const myMarker = (map: naver.maps.Map, position: GeolocationPosition) =>
+export const onSearchLoadMap = (position: simplePosition) =>
+  new naver.maps.Map('map', getSearchMapOptions(position))
+
+export const myMarker = (
+  map: naver.maps.Map,
+  position: GeolocationPosition
+) => {
   new naver.maps.Marker({
     position: new naver.maps.LatLng(
       position.coords.latitude,
@@ -25,7 +47,20 @@ export const myMarker = (map: naver.maps.Map, position: GeolocationPosition) =>
     ),
     map: map,
   })
+}
 
+export const mySearchMarker = (
+  map: naver.maps.Map,
+  position: simplePosition
+) => {
+  const x = Number(position.x)
+  const y = Number(position.y)
+
+  new naver.maps.Marker({
+    position: new naver.maps.LatLng(y, x),
+    map: map,
+  })
+}
 // const infowindow = () => new naver.maps.InfoWindow()
 
 export function setGeolocationOnMap(position: GeolocationPosition): void {
@@ -61,21 +96,55 @@ function onSuccessGeolocation(position: GeolocationPosition) {
   myMarker(map, position)
   // infoMark.open(map, location)
 }
+export function formatPlaceLocation(
+  addresses: naver.maps.Service.AddressItemV2[]
+) {
+  console.log('check', addresses)
 
-export function getPlaceLocation() {
-  const placeList = naver.maps.Service.geocode(
+  const position = addresses.map(el => {
+    return { x: el.x, y: el.y }
+  })
+
+  // const position = { x: 34, y: 132 }
+
+  const map = onSearchLoadMap(position[0])
+
+  position.forEach(el => {
+    const position = { x: el.x, y: el.y }
+
+    mySearchMarker(map, position)
+  })
+}
+
+export function getPlaceLocation(
+  text: string,
+  formatPlaceLocation: (addresses: naver.maps.Service.AddressItemV2[]) => void
+) {
+  checkEmptyString(text)
+
+  console.log('naver.maps.Service', naver.maps.Service)
+
+  naver.maps.Service.geocode(
     {
-      query: '서정동',
+      query: text,
     },
     (status, response) => {
+      console.log('response', status, '<===>', response)
       if (status !== naver.maps.Service.Status.OK) {
         return alert('장소를 찾을 수 없습니다.')
       }
 
       const result = response.v2 // 검색 결과의 컨테이너
-      return result.addresses // 검색 결과의 배열
+      console.log('middle', result.addresses)
+      const address = result.addresses
+      formatPlaceLocation(address)
+      // return result.addresses // 검색 결과의 배열
     }
   )
+}
 
-  return placeList
+export function renderPlaceMarker(text: string) {
+  // formatPlaceLocation(getPlaceLocation(text))
+  getPlaceLocation(text, formatPlaceLocation)
+  // console.log('result', result)
 }
