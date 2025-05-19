@@ -1,7 +1,10 @@
+'use client'
+
 import Logo from '../logo/Logo'
 import SearchButtonV1 from '../button/SearchButtonV1'
-import { useState } from 'react'
+// import { useState } from 'react'
 import { onClickProps } from '@/type/commonButton'
+import { useState } from 'react'
 
 export default function LogoTextField(props: onClickProps) {
   const { onClick } = props
