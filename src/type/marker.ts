@@ -1,12 +1,16 @@
-// src/types/position.ts
-
 export interface simplePosition {
-  //   position: {
-  x: string
-  y: string
-  //   }
+  x: number | string
+  y: number | string
 }
 
-// export interface PositionType {
-//   position: GeolocationPosition | SimplePosition
-// }
+export type SearchPlace = {
+  title: string
+  link: string
+  category: string
+  description: string
+  telephone: string
+  address: string
+  roadAddress: string
+  mapx: string
+  mapy: string
+}
