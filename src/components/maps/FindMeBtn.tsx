@@ -16,7 +16,7 @@ export default function FindMeBtn() {
       // addEventListener('load2', )
       // console.log('load map list', getPlaceLocation())
     }
-  })
+  }, [])
 
   function getMyLocation(position: GeolocationPosition) {
     const map = onLoadMap(position)

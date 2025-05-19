@@ -1,4 +1,4 @@
-import { SearchPlace, simplePosition } from '@/type/marker'
+import { SearchPlaceType, simplePosition } from '@/type/marker'
 import { checkEmptyString, formatMyLocation } from '../common/common'
 // import { getDistance } from 'geolib'
 
@@ -10,18 +10,19 @@ export const getMapOptions = (position: GeolocationPosition) => {
 
   return {
     center: new naver.maps.LatLng(x, y),
-    zoom: 18,
+    zoom: 14,
     mapTypeId: naver.maps.MapTypeId.NORMAL,
   }
 }
 
 export const getSearchMapOptions = (position: simplePosition) => {
+  console.log('검색 후', position)
   const x = Number(position.x)
   const y = Number(position.y)
 
   return {
     center: new naver.maps.LatLng(y, x),
-    zoom: 18,
+    zoom: 14,
     mapTypeId: naver.maps.MapTypeId.NORMAL,
   }
 }
@@ -65,6 +66,7 @@ export const mySearchMarker = (
 // const infowindow = () => new naver.maps.InfoWindow()
 
 export function setGeolocationOnMap(position: GeolocationPosition): void {
+  console.log('setGeolocationOnMap')
   const geolocationError =
     '<div style="padding:20px;"><h5 style="margin-bottom:5px;color:#f00;">Geolocation not supported</h5></div>'
 
@@ -93,7 +95,7 @@ function onSuccessGeolocation(position: GeolocationPosition) {
   // const infoMark = infowindow()
 
   map.setCenter(location) // 얻은 좌표를 지도의 중심으로 설정합니다.
-  map.setZoom(18) // 지도의 줌 레벨을 변경합니다.
+  map.setZoom(14) // 지도의 줌 레벨을 변경합니다.
   myMarker(map, position)
   // infoMark.open(map, location)
 }
@@ -115,7 +117,7 @@ export function formatPlaceLocation(
   })
 }
 
-export function formatSearchPlaceLocation(addresses: SearchPlace[]) {
+export function formatSearchPlaceLocation(addresses: SearchPlaceType[]) {
   const position = addresses.map(el => {
     return {
       x: formatMyLocation(Number(el.mapx)),
