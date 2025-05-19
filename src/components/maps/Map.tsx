@@ -1,52 +1,34 @@
 'use client'
-
+import { getSearchLoc } from '@/actions/api/api'
+import Header from '../layout/Header'
+import FindMeBtn from './FindMeBtn'
 import {
-  // getPlaceLocation,
-  // getMapOptions,
-  // infowindow,
-  myMarker,
-  onLoadMap,
-  setGeolocationOnMap,
+  formatSearchPlaceLocation,
+  getCurrentPositionPromise,
+  getMyLocAddress,
 } from '@/actions/map-action/mapFunctions'
-import { useEffect } from 'react'
-import BlueRoundedBtnV1 from '../common/button/BlueRoundedBtnV1'
+import { getFamousCompany } from '@/data/famousCompany'
 
 export default function Map() {
-  // const mapRef = useRef<HTMLDivElement | null>(null)
+  async function getPlaceList(text: string) {
+    const forMyLocCheckWord = getFamousCompany()
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      navigator.geolocation.getCurrentPosition(setGeolocationOnMap)
-      // addEventListener('load', getPlaceLocation)
-      // addEventListener('load2', )
-      // console.log('load map list', getPlaceLocation())
-    }
-  })
+    const position = await getCurrentPositionPromise()
+    const myAddress = await getMyLocAddress(position) // 이건 현재 함수에 정의되어 있음
+    console.log('주소:', typeof myAddress)
 
-  function getMyLocation(position: GeolocationPosition) {
-    const map = onLoadMap(position)
+    const getNearCompany = forMyLocCheckWord.includes(text)
+    const myloc = myAddress.jibunAddress + text
+    const resultWord = getNearCompany ? myloc : text
 
-    const location = new naver.maps.LatLng(
-      position.coords.latitude,
-      position.coords.longitude
-    )
-
-    naver.maps.Event.once(map, 'init', () => {
-      map.setCenter(location)
-    })
-    // infoMark.open(map, location)
-    myMarker(map, position)
+    const address = await getSearchLoc(resultWord)
+    formatSearchPlaceLocation(address.items)
   }
 
   return (
     <div className="w-full h-full">
-      {/* <div className="absolute left-1"> */}
-      <BlueRoundedBtnV1
-        onClick={() => navigator.geolocation.getCurrentPosition(getMyLocation)}
-        text={'Find Me'}
-        btnPosition={'absolute bottom-16 right-6 z-10'}
-      />
-      {/* </div> */}
+      <Header onClick={getPlaceList} />
+      <FindMeBtn />
       <div id="map" className="w-full h-full"></div>
     </div>
   )
