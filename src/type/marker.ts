@@ -3,7 +3,7 @@ export interface simplePosition {
   y: number | string
 }
 
-export type SearchPlace = {
+export type SearchPlaceType = {
   title: string
   link: string
   category: string
