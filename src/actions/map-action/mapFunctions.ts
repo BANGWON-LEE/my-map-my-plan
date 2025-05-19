@@ -176,7 +176,7 @@ export async function getMyLocAddress(
           return
         }
         const address = response.v2.address
-        resolve(address) // ✅ 정상적으로 값을 반환
+        resolve(address)
       }
     )
   })
