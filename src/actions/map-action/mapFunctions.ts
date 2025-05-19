@@ -1,5 +1,6 @@
-import { simplePosition } from '@/type/marker'
-import { checkEmptyString } from '../common/common'
+import { SearchPlace, simplePosition } from '@/type/marker'
+import { checkEmptyString, formatMyLocation } from '../common/common'
+// import { getDistance } from 'geolib'
 
 export const getMapOptions = (position: GeolocationPosition) => {
   // const checkPositionType = 'coords' in position
@@ -105,7 +106,22 @@ export function formatPlaceLocation(
     return { x: el.x, y: el.y }
   })
 
-  // const position = { x: 34, y: 132 }
+  const map = onSearchLoadMap(position[0])
+
+  position.forEach(el => {
+    const position = { x: el.x, y: el.y }
+
+    mySearchMarker(map, position)
+  })
+}
+
+export function formatSearchPlaceLocation(addresses: SearchPlace[]) {
+  const position = addresses.map(el => {
+    return {
+      x: formatMyLocation(Number(el.mapx)),
+      y: formatMyLocation(Number(el.mapy)),
+    }
+  })
 
   const map = onSearchLoadMap(position[0])
 
@@ -122,20 +138,16 @@ export function getPlaceLocation(
 ) {
   checkEmptyString(text)
 
-  console.log('naver.maps.Service', naver.maps.Service)
-
   naver.maps.Service.geocode(
     {
       query: text,
     },
     (status, response) => {
-      console.log('response', status, '<===>', response)
       if (status !== naver.maps.Service.Status.OK) {
         return alert('장소를 찾을 수 없습니다.')
       }
 
       const result = response.v2 // 검색 결과의 컨테이너
-      console.log('middle', result.addresses)
       const address = result.addresses
       formatPlaceLocation(address)
       // return result.addresses // 검색 결과의 배열
@@ -144,7 +156,33 @@ export function getPlaceLocation(
 }
 
 export function renderPlaceMarker(text: string) {
-  // formatPlaceLocation(getPlaceLocation(text))
   getPlaceLocation(text, formatPlaceLocation)
-  // console.log('result', result)
+}
+
+export async function getMyLocAddress(
+  position: GeolocationPosition
+): Promise<naver.maps.Service.ReverseGeocodeAddress> {
+  const x = position.coords.latitude
+  const y = position.coords.longitude
+
+  return new Promise((resolve, reject) => {
+    naver.maps.Service.reverseGeocode(
+      {
+        coords: new naver.maps.LatLng(x, y),
+      },
+      (status, response) => {
+        if (status !== naver.maps.Service.Status.OK) {
+          reject('Something went wrong with reverse geocode!')
+          return
+        }
+        const address = response.v2.address
+        resolve(address) // ✅ 정상적으로 값을 반환
+      }
+    )
+  })
+}
+export function getCurrentPositionPromise(): Promise<GeolocationPosition> {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject)
+  })
 }
