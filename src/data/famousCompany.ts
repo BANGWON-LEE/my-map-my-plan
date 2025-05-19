@@ -92,5 +92,35 @@ export function getFamousCompany() {
     '영화관',
   ]
 
-  return [...franchiseRestaurants, ...miscFranchises, ...cafes, ...commonNouns]
+  const foodNouns = [
+    '커피',
+    '피자',
+    '떡볶이',
+    '햄버거',
+    '치킨',
+    '초밥',
+    '국밥',
+    '라면',
+    '칼국수',
+    '빵',
+    '디저트',
+    '아이스크림',
+    '스테이크',
+    '샐러드',
+    '파스타',
+    '우동',
+    '쌀국수',
+    '분식',
+    '죽',
+    '만두',
+    '볶음밥',
+  ]
+
+  return [
+    ...franchiseRestaurants,
+    ...miscFranchises,
+    ...cafes,
+    ...commonNouns,
+    ...foodNouns,
+  ]
 }
