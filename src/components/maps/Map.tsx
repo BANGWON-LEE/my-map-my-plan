@@ -32,7 +32,8 @@ export default function Map() {
     const resultWord = getNearCompany ? myloc : text
 
     const address = await getSearchLoc(resultWord)
-    console.log('address', address)
+    // const locImg = await getSearchLocImage(resultWord)
+    // console.log('locImg', locImg)
     setSearchPlaceList(address.items)
     formatSearchPlaceLocation(address.items)
   }

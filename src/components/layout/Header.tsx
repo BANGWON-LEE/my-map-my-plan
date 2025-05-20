@@ -1,21 +1,12 @@
 // 'use client'
 
 import { onClickProps } from '@/type/commonButton'
-// import { useEffect } from 'react'
-// import { renderPlaceMarker } from '@/actions/map-action/mapFunctions'
 import LogoTextField from '../common/input/LogoTextField'
-// import getSearchLoc from '@/actions/api/api'
 
 export default function Header(props: onClickProps) {
   const { onClick } = props
 
   const getPlaceList = onClick
-
-  // useEffect(() => {
-  // const getPlaceList = getSearchLoc('청와대')
-  // console.log('rrreuslt', getPlaceList)
-
-  // }, [])
 
   return (
     <header className="absolute top-0 w-full h-[7rem] z-10 bg-transparent ">
