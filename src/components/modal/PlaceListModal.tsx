@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from 'react'
 import Draggable from 'react-draggable'
 
 import dynamic from 'next/dynamic'
+import { ImageSearchResultType } from '@/type/modal'
 const PlaceListImg = dynamic(() => import('./PlaceListImg'), {
   ssr: false,
   loading: () => (
@@ -23,8 +24,7 @@ export default function PlaceListModal(props: {
   const { searchPlaceList } = props
 
   //   console.log('searchPlaceList', searchPlaceList)
-  const [locImg, setLocImg] = useState<any>([])
-
+  const [locImg, setLocImg] = useState<ImageSearchResultType[]>([])
   async function getLocImg(text: string) {
     const img = await getSearchLocImage(text)
     return img.items
@@ -35,7 +35,13 @@ export default function PlaceListModal(props: {
       const word = el.title + el.address
       return getLocImg(formatAddressTitle(word, '</b>'))
     })
-    const imgArr = await Promise.allSettled(imgPlaceLocList)
+    const settledResult = await Promise.allSettled(imgPlaceLocList)
+
+    const imgArr: ImageSearchResultType[] = settledResult.filter(
+      el => el.status === 'fulfilled'
+    )
+
+    console.log('imgARr', imgArr)
 
     setLocImg(imgArr)
   }
