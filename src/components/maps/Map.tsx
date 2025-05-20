@@ -25,7 +25,7 @@ export default function Map() {
 
     const position = await getCurrentPositionPromise()
     const myAddress = await getMyLocAddress(position) // 이건 현재 함수에 정의되어 있음
-    console.log('주소:', typeof myAddress)
+    // console.log('주소:', typeof myAddress)
 
     const getNearCompany = forMyLocCheckWord.includes(text)
     const myloc = myAddress.jibunAddress + text

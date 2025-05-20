@@ -41,7 +41,7 @@ export default function PlaceListModal(props: {
       el => el.status === 'fulfilled'
     )
 
-    console.log('imgARr', imgArr)
+    // console.log('imgARr', imgArr)
 
     setLocImg(imgArr)
   }

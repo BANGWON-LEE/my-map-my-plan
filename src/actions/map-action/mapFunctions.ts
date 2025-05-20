@@ -16,7 +16,7 @@ export const getMapOptions = (position: GeolocationPosition) => {
 }
 
 export const getSearchMapOptions = (position: simplePosition) => {
-  console.log('검색 후', position)
+  // console.log('검색 후', position)
   const x = Number(position.x)
   const y = Number(position.y)
 
@@ -66,7 +66,7 @@ export const mySearchMarker = (
 // const infowindow = () => new naver.maps.InfoWindow()
 
 export function setGeolocationOnMap(position: GeolocationPosition): void {
-  console.log('setGeolocationOnMap')
+  // console.log('setGeolocationOnMap')
   const geolocationError =
     '<div style="padding:20px;"><h5 style="margin-bottom:5px;color:#f00;">Geolocation not supported</h5></div>'
 
@@ -102,7 +102,7 @@ function onSuccessGeolocation(position: GeolocationPosition) {
 export function formatPlaceLocation(
   addresses: naver.maps.Service.AddressItemV2[]
 ) {
-  console.log('check', addresses)
+  // console.log('check', addresses)
 
   const position = addresses.map(el => {
     return { x: el.x, y: el.y }
