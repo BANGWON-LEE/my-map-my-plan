@@ -29,6 +29,9 @@ export function PlaceImg({ el }: { el: string }) {
     <div className="w-[5rem] h-[5rem] relative">
       <Image
         fill
+        unoptimized
+        // width={100}
+        // height={30}
         src={imgSrc}
         alt="myMap 검색 사진"
         sizes="80px"
