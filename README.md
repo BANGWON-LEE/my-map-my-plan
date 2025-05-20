@@ -9,7 +9,7 @@
 
 - **위치 기반** 검색과 콘텐츠 탐색을 통합한 실사용 중심 앱
 - 네이버 지도 API를 사용한 장소 검색/렌더링
-- Flickr API & YouTube API를 통한 시각 콘텐츠 연동
+- YouTube API를 통한 시각 콘텐츠 연동
 - **SWR 기반 데이터 캐싱** 및 성능 최적화
 - **카카오 T & 네이버 지도 길찾기 연동** UX
 - **PWA 설치 지원**, 모바일에서도 앱처럼 사용 가능
@@ -25,7 +25,7 @@
 | 언어 | TypeScript |
 | 상태 관리 | SWR |
 | 지도 API | Naver Map JavaScript API |
-| 외부 API | Flickr API, YouTube Data API |
+| 외부 API |  YouTube Data API |
 | 인증 | NextAuth.js + Naver OAuth |
 | UI | Tailwind CSS, Framer Motion |
 | 설치형 웹앱 | next-pwa, manifest.json |
@@ -37,7 +37,7 @@
 { ● : 완료, ▲ : 부분완성, x : 미완성 }
 - [x] 장소 검색 및 지도 마커 렌더링 : ▲
 - [x] 현재 위치 확인 (GPS) : ●
-- [x] Flickr 이미지, YouTube 영상 탐색
+- [x] YouTube 영상 탐색
 - [x] 장소 클릭 시 **바텀시트 패널**로 콘텐츠 표시
 - [x] 카카오 T 연동 (텍스트 복사 + 앱 실행)
 - [x] 네이버 지도 길찾기 연동
