@@ -23,7 +23,6 @@ export default function PlaceListImg(props: PlaceListImgType) {
 }
 export function PlaceImg({ el }: { el: string }) {
   //   const { el } = props
-  console.log('fefef', el)
   const [imgSrc, setImgSrc] = useState<string | StaticImageData>(el)
 
   return (
