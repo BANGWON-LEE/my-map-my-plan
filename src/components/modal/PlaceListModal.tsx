@@ -1,15 +1,53 @@
 'use client'
 
+import { getSearchLocImage } from '@/actions/api/api'
+import { formatAddressTitle } from '@/actions/common/common'
 import { SearchPlaceType } from '@/type/marker'
-import { useRef } from 'react'
+// import Image from 'next/image'
+import { useEffect, useRef, useState } from 'react'
 import Draggable from 'react-draggable'
+
+import dynamic from 'next/dynamic'
+const PlaceListImg = dynamic(() => import('./PlaceListImg'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-[10rem] text-center m-auto">
+      <div className="w-8 h-8 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin" />
+    </div>
+  ),
+})
 
 export default function PlaceListModal(props: {
   searchPlaceList: SearchPlaceType[]
 }) {
   const { searchPlaceList } = props
 
-  console.log('searchPlaceList', searchPlaceList)
+  //   console.log('searchPlaceList', searchPlaceList)
+  const [locImg, setLocImg] = useState<any>([])
+
+  async function getLocImg(text: string) {
+    const img = await getSearchLocImage(text)
+    return img.items
+  }
+
+  async function getImgList() {
+    const imgPlaceLocList = searchPlaceList.map(el => {
+      const word = el.title + el.address
+      return getLocImg(formatAddressTitle(word, '</b>'))
+    })
+    const imgArr = await Promise.allSettled(imgPlaceLocList)
+
+    setLocImg(imgArr)
+  }
+
+  useEffect(() => {
+    getImgList()
+    return () => {
+      setLocImg([])
+    }
+  }, [searchPlaceList])
+
+  const laodingStatus = locImg.length > 0 && searchPlaceList.length > 0
 
   const domRef = useRef<HTMLDivElement>(null)
 
@@ -19,30 +57,34 @@ export default function PlaceListModal(props: {
         ref={domRef}
         className="absolute top-[10rem] left-[5rem] z-10 w-xl bg-[#fff] h-[40rem] rounded-2xl overflow-y-scroll"
       >
-        {searchPlaceList.map(el => (
-          <section
-            className="w-[33em] h-[9em] mx-auto mt-3 mb-3 flex"
-            key={el.roadAddress}
-          >
-            <div className=" w-2/3">
-              <div className="flex justify-start w-6/6 items-center">
-                <p className="text-[1.2em] mr-3.5 font-bold">{el.title}</p>
-                <p className="text-[0.8em]">{el.category}</p>
-              </div>
-              <div>
-                <div>
-                  <p>{el.address}</p>
-                  <p>{el.roadAddress}</p>
+        {laodingStatus &&
+          searchPlaceList.map((el, index) => (
+            <section
+              className="w-[33em] h-[9em] mx-auto mt-5 mb-5 flex"
+              key={el.mapx + el.mapx}
+            >
+              <div className=" w-3/4">
+                <div className="flex justify-start w-6/6 items-center">
+                  <p className="text-[1.2em] mr-3.5 font-bold">
+                    {formatAddressTitle(el.title, '</b>')}
+                  </p>
+                  <p className="text-[0.8em]">{el.category}</p>
+                </div>
+                <div className="grid">
+                  <p className="text-sm">{el.address}</p>
+                  <p className="text-sm">{el.roadAddress}</p>
+                </div>
+                <div className="flex justify-between">
+                  <PlaceListImg locImg={locImg} index={index} />
                 </div>
               </div>
-            </div>
-            <div className="w-1/3">
-              <div className="w-full text-center">
-                <button className="mx-auto w-auto">위치 조회</button>
+              <div className="w-1/4">
+                <div className="w-full text-center">
+                  <button className="mx-auto w-auto">위치 조회</button>
+                </div>
               </div>
-            </div>
-          </section>
-        ))}
+            </section>
+          ))}
       </div>
     </Draggable>
   )
