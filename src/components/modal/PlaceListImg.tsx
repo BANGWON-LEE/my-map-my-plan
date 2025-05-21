@@ -21,8 +21,8 @@ export default function PlaceListImg(props: PlaceListImgType) {
     </>
   )
 }
-export function PlaceImg({ el }: { el: string }) {
-  //   const { el } = props
+export function PlaceImg(props: { el: string }) {
+  const { el } = props
   const [imgSrc, setImgSrc] = useState<string | StaticImageData>(el)
 
   return (
