@@ -33,7 +33,7 @@ export function PlaceImg(props: { el: string }) {
         // width={100}
         // height={30}
         src={imgSrc}
-        alt="myMap 검색 사진"
+        alt="마이맵 마이플랜 검색 사진"
         sizes="80px"
         onError={() => setImgSrc(NotImage)}
       />

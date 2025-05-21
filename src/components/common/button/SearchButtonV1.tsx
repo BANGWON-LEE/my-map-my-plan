@@ -8,7 +8,7 @@ export default function SearchButtonV1(props: onClickEventProps) {
 
   return (
     <button onClick={onClick} className="w-full h-full relative cursor-pointer">
-      <Image fill src={Search} alt="MyMap 장소 검색 버튼" />
+      <Image fill src={Search} alt="마이맵 마이플랜 장소 검색 버튼" />
     </button>
   )
 }
