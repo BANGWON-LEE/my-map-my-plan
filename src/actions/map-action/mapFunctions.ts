@@ -130,7 +130,7 @@ export function formatSearchPlaceLocation(addresses: SearchPlaceType[]) {
 
   const map = onSearchLoadMap(position[0])
 
-  console.log('map@@@3', map)
+  // console.log('map@@@3', map)
 
   position.forEach(el => {
     const position = { x: el.x, y: el.y }

@@ -21,10 +21,10 @@ export default function Map() {
   const [searchPlaceList, setSearchPlaceList] = useState<SearchPlaceType[]>([])
 
   useEffect(() => {
-    console.log('window.naver', window.naver.maps.Service)
+    // console.log('window.naver', window.naver.maps.Service)
     const mapStatus = window.naver.maps.Service
     if (mapStatus === null || mapStatus === undefined) {
-      console.log('서비스 없음')
+      console.error('서비스 없음')
       return
     }
 
@@ -50,11 +50,18 @@ export default function Map() {
     formatSearchPlaceLocation(address.items)
   }
 
+  function closeAndClearSearchPlaceList(): void {
+    setSearchPlaceList([])
+  }
+
   return (
     <div className="w-full h-full">
       <Header onClick={getPlaceList} />
       {searchPlaceList.length > 0 && (
-        <PlaceListModal searchPlaceList={searchPlaceList} />
+        <PlaceListModal
+          searchPlaceList={searchPlaceList}
+          close={() => closeAndClearSearchPlaceList()}
+        />
       )}
       <FindMeBtn />
       <div id="map" className="w-full h-full"></div>

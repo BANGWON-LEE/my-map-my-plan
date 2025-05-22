@@ -12,7 +12,7 @@ export default function PlaceListImg(props: PlaceListImgType) {
   const { locImg, index } = props
 
   if (locImg[index]?.value === undefined) {
-    console.log('placeImg undefined')
+    console.error('placeImg undefined')
     return
   }
 
