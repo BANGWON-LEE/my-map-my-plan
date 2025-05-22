@@ -20,6 +20,8 @@ export const getSearchMapOptions = (position: simplePosition) => {
   const x = Number(position.x)
   const y = Number(position.y)
 
+  console.log('xxx', x)
+
   return {
     center: new naver.maps.LatLng(y, x),
     zoom: 14,
@@ -118,6 +120,7 @@ export function formatPlaceLocation(
 }
 
 export function formatSearchPlaceLocation(addresses: SearchPlaceType[]) {
+  if (addresses.length === 0) return alert('장소를 찾을 수 없습니다.')
   const position = addresses.map(el => {
     return {
       x: formatMyLocation(Number(el.mapx)),
@@ -126,6 +129,8 @@ export function formatSearchPlaceLocation(addresses: SearchPlaceType[]) {
   })
 
   const map = onSearchLoadMap(position[0])
+
+  console.log('map@@@3', map)
 
   position.forEach(el => {
     const position = { x: el.x, y: el.y }
@@ -166,6 +171,11 @@ export async function getMyLocAddress(
 ): Promise<naver.maps.Service.ReverseGeocodeAddress> {
   const x = position.coords.latitude
   const y = position.coords.longitude
+
+  // if (naver.maps.Service === undefined || naver.maps.Service === null) {
+  //   alert('아나 스벌')
+  //   setTimeout(() => {})
+  // }
 
   return new Promise((resolve, reject) => {
     naver.maps.Service.reverseGeocode(

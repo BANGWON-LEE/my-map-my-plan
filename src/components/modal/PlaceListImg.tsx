@@ -11,10 +11,15 @@ type PlaceListImgType = {
 export default function PlaceListImg(props: PlaceListImgType) {
   const { locImg, index } = props
 
+  if (locImg[index]?.value === undefined) {
+    console.log('placeImg undefined')
+    return
+  }
+
   return (
     <>
       {locImg.length > 0 &&
-        locImg[index].value.map(el => (
+        locImg[index]?.value.map(el => (
           <PlaceImg key={el.link} el={el.thumbnail} />
           //   <div>www</div>
         ))}
@@ -34,7 +39,7 @@ export function PlaceImg(props: { el: string }) {
         // height={30}
         src={imgSrc}
         alt="마이맵 마이플랜 검색 사진"
-        sizes="80px"
+        sizes={'80'}
         onError={() => setImgSrc(NotImage)}
       />
     </div>

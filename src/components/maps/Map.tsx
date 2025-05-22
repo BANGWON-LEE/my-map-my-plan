@@ -9,7 +9,7 @@ import {
 } from '@/actions/map-action/mapFunctions'
 import { getFamousCompany } from '@/data/famousCompany'
 import dynamic from 'next/dynamic'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { SearchPlaceType } from '@/type/marker'
 const PlaceListModal = dynamic(() => import('../modal/PlaceListModal'), {
   ssr: false,
@@ -19,6 +19,17 @@ const PlaceListModal = dynamic(() => import('../modal/PlaceListModal'), {
 
 export default function Map() {
   const [searchPlaceList, setSearchPlaceList] = useState<SearchPlaceType[]>([])
+
+  useEffect(() => {
+    console.log('window.naver', window.naver.maps.Service)
+    const mapStatus = window.naver.maps.Service
+    if (mapStatus === null || mapStatus === undefined) {
+      console.log('서비스 없음')
+      return
+    }
+
+    // if(window.naver )
+  }, [])
 
   async function getPlaceList(text: string) {
     const forMyLocCheckWord = getFamousCompany()
@@ -35,6 +46,7 @@ export default function Map() {
     // const locImg = await getSearchLocImage(resultWord)
     // console.log('locImg', locImg)
     setSearchPlaceList(address.items)
+    console.log('fff', address.items)
     formatSearchPlaceLocation(address.items)
   }
 
