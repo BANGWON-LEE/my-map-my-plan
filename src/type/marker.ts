@@ -14,3 +14,7 @@ export type SearchPlaceType = {
   mapx: string
   mapy: string
 }
+
+export interface pathPropsDataType {
+  data: SearchPlaceType
+}
