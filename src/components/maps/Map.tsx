@@ -54,7 +54,7 @@ export default function Map() {
   }
 
   function handleKeyDown(event: React.KeyboardEvent, text: string) {
-    console.log('text 확인', text)
+    // console.log('text 확인', text)
     if (event.key === 'Enter') getPlaceList(text)
   }
 

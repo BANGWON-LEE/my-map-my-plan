@@ -20,8 +20,6 @@ export const getSearchMapOptions = (position: simplePosition) => {
   const x = Number(position.x)
   const y = Number(position.y)
 
-  console.log('xxx', x)
-
   return {
     center: new naver.maps.LatLng(y, x),
     zoom: 14,
