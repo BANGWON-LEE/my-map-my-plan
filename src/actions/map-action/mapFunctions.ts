@@ -1,6 +1,5 @@
 import { SearchPlaceType, simplePosition } from '@/type/marker'
 import { checkEmptyString, formatMyLocation } from '../common/common'
-// import { getDistance } from 'geolib'
 
 export const getMapOptions = (position: GeolocationPosition) => {
   // const checkPositionType = 'coords' in position
