@@ -30,7 +30,7 @@ export default function RootLayout({
         <script
           type="text/javascript"
           src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=1awovn0tlc&submodules=geocoder"
-          async
+          defer
         ></script>
       </head>
       <body
