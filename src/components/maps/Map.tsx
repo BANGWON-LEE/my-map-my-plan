@@ -22,7 +22,7 @@ export default function Map() {
 
   useEffect(() => {
     // console.log('window.naver', window.naver.maps.Service)
-    const mapStatus = window.naver.maps.Service
+    const mapStatus = window.naver.maps?.Service
     if (mapStatus === null || mapStatus === undefined) {
       console.error('서비스 없음')
       return
@@ -46,7 +46,6 @@ export default function Map() {
     // const locImg = await getSearchLocImage(resultWord)
     // console.log('locImg', locImg)
     setSearchPlaceList(address.items)
-    console.log('fff', address.items)
     formatSearchPlaceLocation(address.items)
   }
 
