@@ -106,7 +106,7 @@ export default function PlaceListModal(props: {
                   <div className="w-full text-center">
                     <button
                       onClick={() => handleFindLoc(el.mapx, el.mapy)}
-                      className="border-2 font-extrabold p-2 rounded-2xl border-gray-300 bg-blue-300 text-[#FFF] "
+                      className="border-2 font-extrabold p-2 rounded-2xl border-gray-300 bg-blue-300 text-[#FFF] cursor-pointer"
                     >
                       위치 조회
                     </button>
