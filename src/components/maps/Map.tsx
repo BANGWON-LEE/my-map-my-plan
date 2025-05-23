@@ -22,7 +22,7 @@ export default function Map() {
 
   useEffect(() => {
     // console.log('window.naver', window.naver.maps.Service)
-    const mapStatus = window.naver.maps?.Service
+    const mapStatus = window.naver?.maps?.Service
     if (mapStatus === null || mapStatus === undefined) {
       console.error('서비스 없음')
       return
@@ -53,9 +53,14 @@ export default function Map() {
     setSearchPlaceList([])
   }
 
+  function handleKeyDown(event: React.KeyboardEvent, text: string) {
+    console.log('text 확인', text)
+    if (event.key === 'Enter') getPlaceList(text)
+  }
+
   return (
     <div className="w-full h-full">
-      <Header onClick={getPlaceList} />
+      <Header onClick={getPlaceList} onKeyDown={handleKeyDown} />
       {searchPlaceList.length > 0 && (
         <PlaceListModal
           searchPlaceList={searchPlaceList}

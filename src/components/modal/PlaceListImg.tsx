@@ -31,7 +31,7 @@ export function PlaceImg(props: { el: string }) {
   const [imgSrc, setImgSrc] = useState<string | StaticImageData>(el)
 
   return (
-    <div className="w-[5rem] h-[5rem] relative">
+    <div className="w-[5rem] h-[5rem] relative ">
       <Image
         fill
         unoptimized

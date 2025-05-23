@@ -1,10 +1,29 @@
-import { MouseEvent } from 'react'
+import { KeyboardEvent, MouseEvent } from 'react'
 
-export interface onClickEventProps {
+export interface onKeyboardPropsType {
+  onKeyDown: (event: KeyboardEvent, text: string) => void
+}
+export interface onKeyboardEventPropsType {
+  onKeyDown: (event: KeyboardEvent, text: string) => void
+}
+
+export interface searchTextType {
+  text: string
+}
+
+export interface onClickPropsKeyBoadEventType extends onKeyboardEventPropsType {
+  onClick: (text: string) => void
+}
+
+export interface onClickEventPropsWithTextType
+  extends onKeyboardEventPropsType,
+    searchTextType {
   onClick: (event: MouseEvent<Element>) => void
 }
 
-export interface onClickProps {
+export interface onClickPropsType
+  extends onKeyboardEventPropsType,
+    searchTextType {
   onClick: (text: string) => void
 }
 

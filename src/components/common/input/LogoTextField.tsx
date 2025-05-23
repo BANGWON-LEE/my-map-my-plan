@@ -3,11 +3,11 @@
 import Logo from '../logo/Logo'
 import SearchButtonV1 from '../button/SearchButtonV1'
 // import { useState } from 'react'
-import { onClickProps } from '@/type/commonButton'
+import { onClickPropsKeyBoadEventType } from '@/type/commonButton'
 import { useState } from 'react'
 
-export default function LogoTextField(props: onClickProps) {
-  const { onClick } = props
+export default function LogoTextField(props: onClickPropsKeyBoadEventType) {
+  const { onClick, onKeyDown } = props
 
   const [text, setText] = useState<string>('')
 
@@ -22,11 +22,12 @@ export default function LogoTextField(props: onClickProps) {
         type="text"
         value={text}
         onChange={event => writeText(event)}
+        onKeyDown={event => onKeyDown(event, text)}
         placeholder="검색어를 입력하세요"
         className="outline-0 w-5/7 text-2xl font-bold"
       />
       <div className="w-[6rem] h-full">
-        <SearchButtonV1 onClick={() => onClick(text)} />
+        <SearchButtonV1 onClick={onClick} onKeyDown={onKeyDown} text={text} />
       </div>
     </div>
   )
