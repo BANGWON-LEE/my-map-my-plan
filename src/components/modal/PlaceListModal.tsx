@@ -3,7 +3,7 @@
 import { formatAddressTitle, formatMyLocation } from '@/actions/common/common'
 import { SearchPlaceType } from '@/type/marker'
 // import Image from 'next/image'
-import { useEffect, useRef, useState } from 'react'
+import { MouseEvent, useEffect, useRef, useState } from 'react'
 import Draggable from 'react-draggable'
 
 import dynamic from 'next/dynamic'
@@ -15,6 +15,7 @@ import {
 } from '@/actions/map-action/mapFunctions'
 import Image from 'next/image'
 import CloseBtn from '../../assets/close.png'
+import PathChoiceContainer from './PathChoiceContainer'
 const PlaceListImg = dynamic(() => import('./PlaceListImg'), {
   ssr: false,
 })
@@ -55,6 +56,14 @@ export default function PlaceListModal(props: {
 
     const map = onSearchLoadMap(position)
     mySearchMarker(map, position)
+  }
+
+  const [pathChoice, setPathChoice] = useState('')
+
+  function handlePathChoiceModal(event: MouseEvent<HTMLButtonElement>) {
+    const choiceId = event.currentTarget.id
+
+    setPathChoice(choiceId)
   }
 
   const laodingStatus = locImg.length > 0 && searchPlaceList.length > 0
@@ -105,11 +114,19 @@ export default function PlaceListModal(props: {
                 <div className="w-1/4">
                   <div className="w-full text-center">
                     <button
-                      onClick={() => handleFindLoc(el.mapx, el.mapy)}
+                      id={`path-${String(index)}`}
+                      onClick={event => {
+                        handleFindLoc(el.mapx, el.mapy)
+                        handlePathChoiceModal(event)
+                      }}
                       className="border-2 font-extrabold p-2 rounded-2xl border-gray-300 bg-blue-300 text-[#FFF] cursor-pointer"
                     >
                       위치 조회
                     </button>
+
+                    {pathChoice === `path-${String(index)}` && (
+                      <PathChoiceContainer data={el} />
+                    )}
                   </div>
                 </div>
               </section>
