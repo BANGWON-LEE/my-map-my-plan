@@ -1,7 +1,7 @@
 # 📍 myMap myPlan (가제) - 지도 기반 콘텐츠 탐색 플랫폼
 
 > 사용자가 **장소를 검색하면**, 해당 장소의 **이미지, 영상, 위치, 길찾기, 택시 이동**까지 한 번에 확인할 수 있는 **로컬 콘텐츠 탐색 웹앱**입니다.  
-> `Next.js`, `SWR`, `PWA`, `OAuth`, `Naver Maps API`, `YouTube`, `Flickr` 등 다양한 기술을 통합한 **실전형 포트폴리오 프로젝트**입니다.
+> `Next.js`, `SWR`, `PWA`, `OAuth`, `Naver Maps API`, `YouTube` 등 다양한 기술을 통합한 **실전형 포트폴리오 프로젝트**입니다.
 
 ---
 
@@ -21,13 +21,13 @@
 
 | 범주 | 기술 |
 |------|------|
-| 프레임워크 | Next.js 14 (App Router) |
+| 프레임워크 | Next.js 15 (App Router) |
 | 언어 | TypeScript |
 | 상태 관리 | SWR |
 | 지도 API | Naver Map JavaScript API |
 | 외부 API |  YouTube Data API |
 | 인증 | NextAuth.js + Naver OAuth |
-| UI | Tailwind CSS, Framer Motion |
+| UI | Tailwind CSS |
 | 설치형 웹앱 | next-pwa, manifest.json |
 | 배포 | Vercel |
 
@@ -35,7 +35,8 @@
 
 ## 📦 주요 기능
 { ● : 완료, ▲ : 부분완성, x : 미완성 }
-- [x] 장소 검색 및 지도 마커 렌더링 : ▲
+- [x] 장소 검색 및 지도 마커 렌더링 : ●
+- [x] 장소 검색 및 이미지 불러오기 : ●
 - [x] 현재 위치 확인 (GPS) : ●
 - [x] YouTube 영상 탐색
 - [x] 장소 클릭 시 **바텀시트 패널**로 콘텐츠 표시
