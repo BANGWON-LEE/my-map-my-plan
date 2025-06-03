@@ -48,7 +48,7 @@ export default function PlaceListModal(props: {
     }
   }, [searchPlaceList])
 
-  function handleFindLoc(x: string, y: string): void {
+  function handleFindLoc(x: number, y: number): void {
     const position = {
       x: formatMyLocation(Number(x)),
       y: formatMyLocation(Number(y)),
@@ -74,7 +74,7 @@ export default function PlaceListModal(props: {
     <Draggable nodeRef={domRef as React.RefObject<HTMLDivElement>}>
       <div
         ref={domRef}
-        className="absolute top-[10rem] left-[5rem] z-10 w-xl bg-[#fff] h-[40rem] rounded-2xl "
+        className="absolute top-[10rem] left-[5rem] z-10 w-[39rem] bg-[#fff] h-[40rem] rounded-2xl "
       >
         <div className=" m-3 flex justify-end">
           <button
@@ -123,7 +123,6 @@ export default function PlaceListModal(props: {
                     >
                       위치 조회
                     </button>
-
                     {pathChoice === `path-${String(index)}` && (
                       <PathChoiceContainer data={el} />
                     )}
