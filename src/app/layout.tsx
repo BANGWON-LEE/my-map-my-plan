@@ -1,18 +1,20 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
-import Main from '@/components/Main'
+// import { Geist, Geist_Mono } from 'next/font/google'
+// import Main from '@/components/Main'
 import './globals.css'
 import { Analytics } from '@vercel/analytics/next'
+import RecoilRootWrapper from '@/components/wrapper/RecoilWrapper'
+import Main from '@/components/Main'
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-})
+// const geistSans = Geist({
+//   variable: '--font-geist-sans',
+//   subsets: ['latin'],
+// })
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-})
+// const geistMono = Geist_Mono({
+//   variable: '--font-geist-mono',
+//   subsets: ['latin'],
+// })
 
 export const metadata: Metadata = {
   title: 'my map my plan',
@@ -33,11 +35,9 @@ export default function RootLayout({
           defer
         ></script>
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`antialiased`}>
         <Main>
-          {children}
+          <RecoilRootWrapper>{children}</RecoilRootWrapper>
           <Analytics />
         </Main>
       </body>

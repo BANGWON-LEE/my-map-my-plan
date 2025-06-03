@@ -1,6 +1,6 @@
-import type { NextConfig } from 'next'
+// import type { NextConfig } from 'next'
 
-const nextConfig: NextConfig = {
+const nextConfig = {
   /* config options here */
   images: {
     domains: ['search.pstatic.net', 'example.com', 'imgnews.naver.net'],
