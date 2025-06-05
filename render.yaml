@@ -1,7 +1,0 @@
-services:
-  - type: web
-    name: ncp-next-proxy
-    env: node
-    plan: free
-    buildCommand: yarn install && yarn run build
-    startCommand: yarn start
