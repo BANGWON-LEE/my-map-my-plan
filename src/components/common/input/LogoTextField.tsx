@@ -27,7 +27,7 @@ export default function LogoTextField(props: onClickPropsKeyBoadEventType) {
         className="outline-0 w-5/7 text-2xl font-bold"
       />
       <div className="w-[6rem] h-full">
-        <SearchButtonV1 onClick={onClick} onKeyDown={onKeyDown} text={text} />
+        <SearchButtonV1 onClick={() => onClick(text)} />
       </div>
     </div>
   )

@@ -21,10 +21,8 @@ export interface onClickEventPropsWithTextType
   onClick: (event: MouseEvent<Element>) => void
 }
 
-export interface onClickPropsType
-  extends onKeyboardEventPropsType,
-    searchTextType {
-  onClick: (text: string) => void
+export interface onClickPropsType {
+  onClick: () => void
 }
 
 export interface BlueRoundedBtnV1Type {

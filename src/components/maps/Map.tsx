@@ -15,20 +15,15 @@ const PlaceListModal = dynamic(() => import('../modal/PlaceListModal'), {
   ssr: false,
 })
 
-// import PlaceListModal from '../modal/PlaceListModal'
-
 export default function Map() {
   const [searchPlaceList, setSearchPlaceList] = useState<SearchPlaceType[]>([])
 
   useEffect(() => {
-    // console.log('window.naver', window.naver.maps.Service)
     const mapStatus = window.naver?.maps?.Service
     if (mapStatus === null || mapStatus === undefined) {
       console.error('서비스 없음')
       return
     }
-
-    // if(window.naver )
   }, [])
 
   async function getPlaceList(text: string) {
@@ -43,8 +38,6 @@ export default function Map() {
     const resultWord = getNearCompany ? myloc : text
 
     const address = await getSearchLoc(resultWord)
-    // const locImg = await getSearchLocImage(resultWord)
-    // console.log('locImg', locImg)
     setSearchPlaceList(address.items)
     formatSearchPlaceLocation(address.items)
   }
@@ -54,7 +47,6 @@ export default function Map() {
   }
 
   function handleKeyDown(event: React.KeyboardEvent, text: string) {
-    // console.log('text 확인', text)
     if (event.key === 'Enter') getPlaceList(text)
   }
 

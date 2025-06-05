@@ -14,12 +14,9 @@ export default function HeaderInputField(props: onClickPropsKeyBoadEventType) {
 
   const startInfoState = useRecoilValue(routeStartSelector)
 
-  console.log('start na', startInfoState.start.path.x === 0)
-
   return (
     <>
       <LogoTextField onClick={onClick} onKeyDown={onKeyDown} />
-
       {startInfoState.start.path.x !== 0 && <StartAndGoalTextField />}
     </>
   )
