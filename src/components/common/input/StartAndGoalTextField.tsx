@@ -4,6 +4,10 @@ import SearchButtonV1 from '../button/SearchButtonV1'
 import { useRecoilValue } from 'recoil'
 import { routeGoalSelector, routeStartSelector } from '@/recoil/selector'
 import { getPathDriving } from '@/actions/api/api'
+import {
+  onLoadRouteMap,
+  setCarPolyLine,
+} from '@/actions/map-action/mapFunctions'
 
 export default function StartAndGoalTextField() {
   const startInfoState = useRecoilValue(routeStartSelector)
@@ -22,7 +26,18 @@ export default function StartAndGoalTextField() {
     const goalCoordinate = formatGoalCoordinate()
 
     const path = await getPathDriving(startCoordinate, goalCoordinate)
-    console.log('get 드라이브 경로', path)
+
+    const position = {
+      x: goalInfoState.goal.path.x,
+      y: goalInfoState.goal.path.y,
+    }
+
+    console.log('position fff', position)
+
+    const map = onLoadRouteMap(position)
+    setCarPolyLine(map, path.path)
+
+    // console.log('get 드라이브 경로', path)
   }
 
   return (

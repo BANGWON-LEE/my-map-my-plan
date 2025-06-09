@@ -31,15 +31,13 @@ export async function getSearchLocImage(text: string = '광화문') {
 }
 
 export async function getPathDriving(start: string, goal: string) {
+  // console.log('qqqq', start, goal)
+
   const result = await axios.get(
-    `https://naveropenapi.apigw.ntruss.com/map-direction/v1/driving?start=${start}&goal=${goal}`,
-    {
-      headers: {
-        'X-NCP-APIGW-API-KEY-ID': process.env.NCP_APIGW_API_KEY_ID!,
-        'X-NCP-APIGW-API-KEY': process.env.NCP_APIGW_API_KEY!,
-      },
-    }
+    `https://ncp-render-proxy.onrender.com/driving?start=${start}&goal=${goal}`
   )
 
-  return result
+  console.log('결과', result.data)
+
+  return result.data
 }

@@ -26,6 +26,18 @@ export const getSearchMapOptions = (position: simplePosition) => {
   }
 }
 
+export const getRouteMapOptions = (position: simplePosition) => {
+  // console.log('검색 후', position)
+  const x = Number(position.x)
+  const y = Number(position.y)
+
+  return {
+    center: new naver.maps.LatLng(y, x),
+    zoom: 15,
+    mapTypeId: naver.maps.MapTypeId.NORMAL,
+  }
+}
+
 export const infowindow = () =>
   new naver.maps.InfoWindow({
     content: '<div style="padding:10px;">i am here</div>',
@@ -36,6 +48,9 @@ export const onLoadMap = (position: GeolocationPosition) =>
 
 export const onSearchLoadMap = (position: simplePosition) =>
   new naver.maps.Map('map', getSearchMapOptions(position))
+
+export const onLoadRouteMap = (position: simplePosition) =>
+  new naver.maps.Map('map', getRouteMapOptions(position))
 
 export const myMarker = (
   map: naver.maps.Map,
@@ -193,5 +208,21 @@ export async function getMyLocAddress(
 export function getCurrentPositionPromise(): Promise<GeolocationPosition> {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject)
+  })
+}
+
+export const setCarPolyLine = (
+  map: naver.maps.Map,
+  path: [[number, number]]
+) => {
+  console.log('ff', map)
+
+  const pathFromAPI = path.map(([x, y]) => new naver.maps.LatLng(y, x))
+
+  new naver.maps.Polyline({
+    path: pathFromAPI,
+    strokeColor: '#ff0000',
+    strokeWeight: 5,
+    map: map,
   })
 }
