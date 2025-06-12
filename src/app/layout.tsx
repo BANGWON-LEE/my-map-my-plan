@@ -34,6 +34,10 @@ export default function RootLayout({
           src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=1awovn0tlc&submodules=geocoder"
           defer
         ></script>
+        {/* <script
+          src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=EGxTk6ZG5L6VmtY26wGOf5uyXhSewdgS6rJIXvV1"
+          async
+        ></script> */}
       </head>
       <body className={`antialiased`}>
         <Main>

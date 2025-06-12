@@ -65,6 +65,47 @@ export const myMarker = (
   })
 }
 
+export const startMarker = (
+  map: naver.maps.Map,
+  startPosition: { x: number; y: number }
+) => {
+  const position = new naver.maps.LatLng(startPosition.y, startPosition.x)
+
+  new naver.maps.Marker({
+    // position: position.destinationPoint(90, 15),
+    position: position,
+    icon: {
+      url: '../../assets/start.png',
+      // size: new naver.maps.Size(128, 128),
+      // scaledSize: new naver.maps.Size(32, 32),
+      size: new naver.maps.Size(128, 128),
+      origin: new naver.maps.Point(0, 0),
+      scaledSize: new naver.maps.Size(32, 32),
+      anchor: new naver.maps.Point(16, 32),
+    },
+    map: map,
+  })
+}
+export const goalMarker = (
+  map: naver.maps.Map,
+  goalPosition: { x: number; y: number }
+) => {
+  const position = new naver.maps.LatLng(goalPosition.y, goalPosition.x)
+
+  new naver.maps.Marker({
+    // position: position.destinationPoint(90, 15),
+    position: position,
+    icon: {
+      url: '../../assets/end.png',
+      size: new naver.maps.Size(128, 128),
+      origin: new naver.maps.Point(0, 0),
+      scaledSize: new naver.maps.Size(32, 32),
+      anchor: new naver.maps.Point(16, 32),
+    },
+    map: map,
+  })
+}
+
 export const mySearchMarker = (
   map: naver.maps.Map,
   position: simplePosition
@@ -215,13 +256,31 @@ export const setCarPolyLine = (
   map: naver.maps.Map,
   path: [[number, number]]
 ) => {
-  console.log('ff', map)
-
   const pathFromAPI = path.map(([x, y]) => new naver.maps.LatLng(y, x))
 
   new naver.maps.Polyline({
     path: pathFromAPI,
-    strokeColor: '#ff0000',
+    strokeColor: '#00bfff',
+    strokeWeight: 5,
+    map: map,
+  })
+}
+
+export const setWalkPolyLine = (
+  map: naver.maps.Map,
+  path: [[number, number]]
+) => {
+  const formatPath = path.map(([x, y]) => {
+    return [x, y]
+  })
+
+  console.log('format', formatPath)
+
+  const pathFromAPI = formatPath.map(([x, y]) => new naver.maps.LatLng(y, x))
+
+  new naver.maps.Polyline({
+    path: pathFromAPI,
+    strokeColor: '#98fb98',
     strokeWeight: 5,
     map: map,
   })

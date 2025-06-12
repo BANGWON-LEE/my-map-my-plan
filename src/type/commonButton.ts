@@ -25,6 +25,10 @@ export interface onClickPropsType {
   onClick: () => void
 }
 
+export interface RoutePropsType extends onClickPropsType {
+  text: string
+}
+
 export interface BlueRoundedBtnV1Type {
   onClick: () => void
   text: string

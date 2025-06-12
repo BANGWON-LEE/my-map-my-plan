@@ -4,6 +4,7 @@ export function checkEmptyString(text: string) {
 }
 
 export const formatMyLocation = (value: number): number => value / 1e7
+export const formatTmapPath = (value: number): number => value * 0.00001
 
 export function formatAddressTitle(title: string, charsToRemove: string) {
   const removePattern = new RegExp(`[${charsToRemove}]`, 'g')
