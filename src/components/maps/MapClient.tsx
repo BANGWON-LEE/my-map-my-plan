@@ -11,8 +11,6 @@
 
 // import { Suspense } from 'react'
 
-import Map from './Map'
-
 export default function MapClient() {
-  return <Map />
+  return <div id="map" className="w-full h-full"></div>
 }

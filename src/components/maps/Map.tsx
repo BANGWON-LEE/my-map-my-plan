@@ -9,8 +9,9 @@ import {
 } from '@/actions/map-action/mapFunctions'
 import { getFamousCompany } from '@/data/famousCompany'
 import dynamic from 'next/dynamic'
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { SearchPlaceType } from '@/type/marker'
+import MapClient from './MapClient'
 const PlaceListModal = dynamic(() => import('../modal/PlaceListModal'), {
   ssr: false,
 })
@@ -62,7 +63,9 @@ export default function Map() {
         />
       )}
       <FindMeBtn />
-      <div id="map" className="w-full h-full"></div>
+      <Suspense fallback={<div>경로를 불러오는 중</div>}>
+        <MapClient />
+      </Suspense>
     </div>
   )
 }
