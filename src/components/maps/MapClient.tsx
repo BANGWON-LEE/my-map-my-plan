@@ -1,5 +1,10 @@
 'use client'
 
+import { signalRouteState } from '@/recoil/atoms'
+
+import { useRecoilState } from 'recoil'
+import RouteSpinner from '../common/loading/RouteSpinner'
+
 // import dynamic from 'next/dynamic'
 // import RecoilRootWrapper from '../wrapper/RecoilWrapper'
 
@@ -12,5 +17,12 @@
 // import { Suspense } from 'react'
 
 export default function MapClient() {
-  return <div id="map" className="w-full h-full"></div>
+  const [routePathSignal] = useRecoilState(signalRouteState)
+
+  return (
+    <>
+      {routePathSignal && <RouteSpinner />}
+      <div id="map" className="w-full h-full"></div>
+    </>
+  )
 }

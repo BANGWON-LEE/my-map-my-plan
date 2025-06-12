@@ -25,3 +25,8 @@ export const goalLocPathAtom = atom<{ x: number; y: number }>({
     y: 0,
   },
 })
+
+export const signalRouteState = atom<boolean>({
+  key: 'recoil/atom/signalRouteState',
+  default: false,
+})

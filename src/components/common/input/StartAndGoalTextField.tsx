@@ -1,6 +1,6 @@
 'use client'
 
-import { useRecoilValue } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { routeGoalSelector, routeStartSelector } from '@/recoil/selector'
 import { getPathDriving, getPathWalking } from '@/actions/api/api'
 import {
@@ -11,6 +11,7 @@ import {
   startMarker,
 } from '@/actions/map-action/mapFunctions'
 import RouteBtn from '../button/RouteBtn'
+import { signalRouteState } from '@/recoil/atoms'
 
 export default function StartAndGoalTextField() {
   const startInfoState = useRecoilValue(routeStartSelector)
@@ -21,7 +22,10 @@ export default function StartAndGoalTextField() {
   const formatGoalCoordinate = () =>
     `${goalInfoState.goal.path.x},${goalInfoState.goal.path.y}`
 
+  const [, setRoutePathSignal] = useRecoilState(signalRouteState)
+
   async function getPathDrivie() {
+    setRoutePathSignal(true)
     const startCoordinate = formatStartCoordinate()
     const goalCoordinate = formatGoalCoordinate()
 
@@ -33,7 +37,7 @@ export default function StartAndGoalTextField() {
     }
 
     const map = onLoadRouteMap(position)
-    console.log('path drive', path)
+    setRoutePathSignal(false)
     setCarPolyLine(map, path.path)
 
     startMarker(map, startInfoState.start.path)
@@ -41,8 +45,7 @@ export default function StartAndGoalTextField() {
   }
 
   async function getPathWalk() {
-    // const startCoordinate = formatStartCoordinate()
-    // const goalCoordinate = formatGoalCoordinate()
+    setRoutePathSignal(true)
 
     const requestData = {
       startX: startInfoState.start.path.x,
@@ -62,30 +65,14 @@ export default function StartAndGoalTextField() {
       x: goalInfoState.goal.path.x,
       y: goalInfoState.goal.path.y,
     }
-    //
-    // console.log('path walk', path)
 
     const map = onLoadRouteMap(position)
+    setRoutePathSignal(false)
     setWalkPolyLine(map, path.path)
 
     startMarker(map, startInfoState.start.path)
     goalMarker(map, goalInfoState.goal.path)
   }
-
-  // function determineRouteType(
-  //   routeType: string,
-  //   startCoordinate: string,
-  //   goalCoordinate: string
-  // ) {
-  //   switch (routeType) {
-  //     case '자동차':
-  //       getPathDriving(startCoordinate, goalCoordinate)
-  //       break
-  //     case '걷기':
-  //       getPathWalking(startCoordinate, goalCoordinate)
-  //       break
-  //   }
-  // }
 
   return (
     <div className="flex w-full h-full justify-end relative">

@@ -16,6 +16,7 @@ import {
 import Image from 'next/image'
 import CloseBtn from '../../assets/close.png'
 import PathChoiceContainer from './PathChoiceContainer'
+import Spinner from '../common/loading/Spinner'
 const PlaceListImg = dynamic(() => import('./PlaceListImg'), {
   ssr: false,
 })
@@ -131,9 +132,7 @@ export default function PlaceListModal(props: {
               </section>
             ))
           ) : (
-            <div className="w-full h-full grid items-center text-center m-auto">
-              <div className="w-16 h-16 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin m-auto" />
-            </div>
+            <Spinner />
           )}
         </div>
       </div>

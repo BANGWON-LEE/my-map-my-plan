@@ -1,6 +1,8 @@
 'use server'
+// import { signalRouteState } from '@/recoil/atoms'
 import { tmapObjType, tmapResponseWalk } from '@/type/route'
 import axios from 'axios'
+// import { useRecoilState } from 'recoil'
 
 export async function getSearchLoc(text: string = '광화문') {
   // axios.get(`https://openapi.naver.com/v1/search/local?query=${word}`)
@@ -31,14 +33,16 @@ export async function getSearchLocImage(text: string = '광화문') {
   return result.data
 }
 
-export async function getPathDriving(start: string, goal: string) {
+export async function getPathDriving(
+  start: string,
+  goal: string
+  // handleRouteSignal: () => void
+) {
   // console.log('qqqq', start, goal)
 
   const result = await axios.get(
     `https://ncp-render-proxy.onrender.com/driving?start=${start}&goal=${goal}`
   )
-
-  console.log('결과', result.data)
 
   return result.data
 }
@@ -62,11 +66,13 @@ export async function getPathWalking(requestData: tmapObjType) {
     requestData,
     { headers: headers }
   )
+  console.log('resultDD', result.data)
 
   const walkPath = {
     path: result.data.features
       .filter((item: tmapResponseWalk) => item.geometry.type === 'Point')
       .map((result: tmapResponseWalk) => result.geometry.coordinates),
   }
+
   return walkPath
 }
