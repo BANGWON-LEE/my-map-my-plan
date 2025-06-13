@@ -16,3 +16,15 @@ export interface tmapResponseWalk {
     coordinates: [number, number]
   }
 }
+
+export type routeSummary = {
+  distance: number
+  duration: number
+}
+
+export type totalRouteSummary = {
+  startSummaryState: routeSummary
+  goalSummaryState: routeSummary
+  startInfoStateName: string
+  goalInfoStateName: string
+}

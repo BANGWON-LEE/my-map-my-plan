@@ -12,6 +12,13 @@ import dynamic from 'next/dynamic'
 import { Suspense, useEffect, useState } from 'react'
 import { SearchPlaceType } from '@/type/marker'
 import MapClient from './MapClient'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import {
+  goalLocSummaryAtom,
+  signalCateGoryStateAtom,
+  startLocSummaryAtom,
+} from '@/recoil/atoms'
+import { placeListModalCategory } from '@/data/constants'
 const PlaceListModal = dynamic(() => import('../modal/PlaceListModal'), {
   ssr: false,
 })
@@ -27,6 +34,8 @@ export default function Map() {
     }
   }, [])
 
+  const [, setCategoryState] = useRecoilState(signalCateGoryStateAtom)
+
   async function getPlaceList(text: string) {
     const forMyLocCheckWord = getFamousCompany()
 
@@ -41,6 +50,7 @@ export default function Map() {
     const address = await getSearchLoc(resultWord)
     setSearchPlaceList(address.items)
     formatSearchPlaceLocation(address.items)
+    setCategoryState(placeListModalCategory.placeList)
   }
 
   function closeAndClearSearchPlaceList(): void {
@@ -53,10 +63,21 @@ export default function Map() {
     if (event.key === 'Enter') return getPlaceList(text)
   }
 
+  const startSummaryState = useRecoilValue(startLocSummaryAtom)
+  const goalSummaryState = useRecoilValue(goalLocSummaryAtom)
+  const routeStateSignal = startSummaryState.distance > 0
+
+  console.log(
+    '경로 상태',
+    routeStateSignal,
+    startSummaryState,
+    goalSummaryState
+  )
+
   return (
     <div className="w-full h-full">
       <Header onClick={getPlaceList} onKeyDown={handleKeyDown} />
-      {searchPlaceList.length > 0 && (
+      {(searchPlaceList.length > 0 || routeStateSignal) && (
         <PlaceListModal
           searchPlaceList={searchPlaceList}
           close={() => closeAndClearSearchPlaceList()}

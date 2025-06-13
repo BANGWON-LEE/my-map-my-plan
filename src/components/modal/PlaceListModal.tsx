@@ -1,25 +1,37 @@
 'use client'
 
-import { formatAddressTitle, formatMyLocation } from '@/actions/common/common'
+import { formatAddressTitle } from '@/actions/common/common'
 import { SearchPlaceType } from '@/type/marker'
 // import Image from 'next/image'
-import { MouseEvent, useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import Draggable from 'react-draggable'
 
-import dynamic from 'next/dynamic'
+// import dynamic from 'next/dynamic'
 import { ImageSearchResultType } from '@/type/modal'
 import { getLocImg } from '@/actions/modal-action/modalFunctions'
-import {
-  mySearchMarker,
-  onSearchLoadMap,
-} from '@/actions/map-action/mapFunctions'
+import // mySearchMarker,
+// onSearchLoadMap,
+'@/actions/map-action/mapFunctions'
 import Image from 'next/image'
 import CloseBtn from '../../assets/close.png'
-import PathChoiceContainer from './PathChoiceContainer'
+// import PathChoiceContainer from './PathChoiceContainer'
 import Spinner from '../common/loading/Spinner'
-const PlaceListImg = dynamic(() => import('./PlaceListImg'), {
-  ssr: false,
-})
+import { useRecoilState, useRecoilValue } from 'recoil'
+import {
+  goalLocSummaryAtom,
+  signalCateGoryStateAtom,
+  startLocSummaryAtom,
+} from '@/recoil/atoms'
+import PlaceRouteComponent from './PlaceRouteComponent'
+import { routeGoalSelector, routeStartSelector } from '@/recoil/selector'
+import { placeListModalCategory } from '@/data/constants'
+// import PlaceListComponent from './PlaceListComponent'
+
+const PlaceListComponent = lazy(() => import('./PlaceListComponent'))
+
+// const PlaceListImg = dynamic(() => import('./PlaceListImg'), {
+//   ssr: false,
+// })
 
 export default function PlaceListModal(props: {
   searchPlaceList: SearchPlaceType[]
@@ -49,91 +61,101 @@ export default function PlaceListModal(props: {
     }
   }, [searchPlaceList])
 
-  function handleFindLoc(x: number, y: number): void {
-    const position = {
-      x: formatMyLocation(Number(x)),
-      y: formatMyLocation(Number(y)),
-    }
-
-    const map = onSearchLoadMap(position)
-    mySearchMarker(map, position)
-  }
-
-  const [pathChoice, setPathChoice] = useState('')
-
-  function handlePathChoiceModal(event: MouseEvent<HTMLButtonElement>) {
-    const choiceId = event.currentTarget.id
-
-    setPathChoice(choiceId)
-  }
-
-  const laodingStatus = locImg.length > 0 && searchPlaceList.length > 0
-  // const laodingStatus = false
   const domRef = useRef<HTMLDivElement>(null)
+
+  const categoryBtnStyle =
+    'border-2 bg-gray-400 hover:bg-gray-500 text-[#FFF] font-bold rounded-lg p-2'
+
+  const choicedCategoryBtnStyle =
+    'border-2 bg-gray-500 hover:bg-gray-500 text-[#FFF] font-extrabold rounded-lg p-2'
+
+  const [categoryState, setCategoryState] = useRecoilState(
+    signalCateGoryStateAtom
+  )
+
+  function handleCategorySignal(cate: string) {
+    setCategoryState(cate)
+  }
+
+  const startSummaryState = useRecoilValue(startLocSummaryAtom)
+  const goalSummaryState = useRecoilValue(goalLocSummaryAtom)
+  const startInfoState = useRecoilValue(routeStartSelector)
+  const goalInfoState = useRecoilValue(routeGoalSelector)
+
+  const routeStateSignal = startSummaryState.distance > 0
 
   return (
     <Draggable nodeRef={domRef as React.RefObject<HTMLDivElement>}>
       <div
         ref={domRef}
-        className="absolute top-[10rem] left-[5rem] z-10 w-[39rem] bg-[#fff] h-[40rem] rounded-2xl "
+        className="absolute top-[10rem] left-[5rem] z-10 w-[39rem]   bg-[#fff] h-[40rem] rounded-2xl "
       >
-        <div className=" m-3 flex justify-end">
-          <button
-            className=" w-[1.5rem] h-[1.5rem] cursor-pointer"
-            onClick={close}
-          >
-            <Image
-              src={CloseBtn}
-              unoptimized
-              sizes="full"
-              alt="마이맵 마이플랜 팝업 닫기"
-            />
-          </button>
+        <div className="flex justify-between">
+          <div className="flex justify-between items-center w-[11rem] ml-11 mt-3">
+            <div className="w-32">
+              <button
+                onClick={() =>
+                  handleCategorySignal(placeListModalCategory.placeList)
+                }
+                className={
+                  categoryState === placeListModalCategory.placeList
+                    ? choicedCategoryBtnStyle
+                    : categoryBtnStyle
+                }
+              >
+                {placeListModalCategory.placeList}
+              </button>
+            </div>
+            <div className="w-32">
+              <button
+                onClick={() =>
+                  handleCategorySignal(placeListModalCategory.route)
+                }
+                className={
+                  categoryState === placeListModalCategory.route
+                    ? choicedCategoryBtnStyle
+                    : categoryBtnStyle
+                }
+                disabled={routeStateSignal === false}
+              >
+                경로정보
+              </button>
+            </div>
+          </div>
+          <div className=" mt-3 mr-3 flex justify-end">
+            <button
+              className=" w-[1.5rem] h-[1.5rem] cursor-pointer"
+              onClick={close}
+            >
+              <Image
+                src={CloseBtn}
+                unoptimized
+                sizes="full"
+                alt="마이맵 마이플랜 팝업 닫기"
+              />
+            </button>
+          </div>
         </div>
         <div className="overflow-y-scroll w-full h-[36.5rem]">
-          {laodingStatus ? (
-            searchPlaceList.map((el, index) => (
-              <section
-                className="w-[33em] h-[11em] mx-auto my-5 pb-5 flex border-b-1 border-b-gray-200"
-                key={el.mapx + el.mapx}
-              >
-                <div className=" w-3/4">
-                  <div className="flex justify-start w-6/6 items-center">
-                    <p className="text-[1.2em] mr-3.5 font-bold">
-                      {formatAddressTitle(el.title, '</b>')}
-                    </p>
-                    <p className="text-[0.8em]">{el.category}</p>
-                  </div>
-                  <div className="grid">
-                    <p className="text-sm">{el.address}</p>
-                    <p className="text-sm">{el.roadAddress}</p>
-                  </div>
-                  <div className="flex justify-between">
-                    <PlaceListImg locImg={locImg} index={index} />
-                  </div>
-                </div>
-                <div className="w-1/4">
-                  <div className="w-full text-center">
-                    <button
-                      id={`path-${String(index)}`}
-                      onClick={event => {
-                        handleFindLoc(el.mapx, el.mapy)
-                        handlePathChoiceModal(event)
-                      }}
-                      className="border-2 font-extrabold p-2 rounded-2xl border-gray-300 bg-blue-300 text-[#FFF] cursor-pointer"
-                    >
-                      위치 조회
-                    </button>
-                    {pathChoice === `path-${String(index)}` && (
-                      <PathChoiceContainer data={el} />
-                    )}
-                  </div>
-                </div>
-              </section>
-            ))
-          ) : (
-            <Spinner />
-          )}
+          <Suspense fallback={<Spinner />}>
+            {categoryState === placeListModalCategory.placeList &&
+              searchPlaceList.map((el, index) => (
+                <PlaceListComponent
+                  key={el.mapx - el.mapy}
+                  el={el}
+                  index={index}
+                  locImg={locImg}
+                />
+              ))}
+            {categoryState === placeListModalCategory.route && (
+              <PlaceRouteComponent
+                startSummaryState={startSummaryState}
+                goalSummaryState={goalSummaryState}
+                startInfoStateName={startInfoState.start.name}
+                goalInfoStateName={goalInfoState.goal.name}
+              />
+            )}
+          </Suspense>
         </div>
       </div>
     </Draggable>

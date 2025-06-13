@@ -12,3 +12,22 @@ export interface ImageSearchResultType {
   status: 'fulfilled'
   value: ImageItemType[]
 }
+
+export type placeListComponentType = {
+  el: {
+    title: string
+    category: string
+    address: string
+    roadAddress: string
+    mapx: number
+    mapy: number
+  }
+}
+
+export type placeListImgType = {
+  index: number
+  locImg: ImageSearchResultType[]
+}
+
+export type totalPlaceListComponentType = placeListComponentType &
+  placeListImgType

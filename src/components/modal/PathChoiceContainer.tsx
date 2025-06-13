@@ -2,12 +2,13 @@
 
 import { formatAddressTitle, formatMyLocation } from '@/actions/common/common'
 import { routeGoalSelector, routeStartSelector } from '@/recoil/selector'
-import { pathPropsDataType, routeSelectorType } from '@/type/marker'
+import { routeSelectorType } from '@/type/marker'
+import { placeListComponentType } from '@/type/modal'
 import { useRecoilState } from 'recoil'
 
-export default function PathChoiceContainer(props: pathPropsDataType) {
-  const { data } = props
-  console.log('data', data)
+export default function PathChoiceContainer(props: placeListComponentType) {
+  const { el } = props
+  console.log('data', el)
   // console.log('type index', choiceKey)
 
   const [, setStartInfoState] = useRecoilState(routeStartSelector)
@@ -41,7 +42,7 @@ export default function PathChoiceContainer(props: pathPropsDataType) {
     <section className="bg-gray-100 mx-auto w-[5rem] rounded-2xl ">
       <div className="border-b-2 border-b-gray-200">
         <button
-          onClick={() => setStartLocInfo(data)}
+          onClick={() => setStartLocInfo(el)}
           className=" w-[5rem] rounded-t-2xl cursor-pointer py-2 font-bold hover:bg-green-300"
         >
           출발
@@ -49,7 +50,7 @@ export default function PathChoiceContainer(props: pathPropsDataType) {
       </div>
       <div>
         <button
-          onClick={() => setGoalLocInfo(data)}
+          onClick={() => setGoalLocInfo(el)}
           className="  w-[5rem] rounded-b-2xl cursor-pointer py-2 font-bold hover:bg-red-300"
         >
           도착

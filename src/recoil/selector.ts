@@ -14,7 +14,7 @@ export const routeStartSelector = selector({
 
     const start = {
       start: {
-        name: '출발 : ' + startName,
+        name: startName,
         path: startPath,
       },
     }
@@ -40,7 +40,7 @@ export const routeGoalSelector = selector({
 
     return {
       goal: {
-        name: '도착 : ' + goalName,
+        name: goalName,
         path: goalPath,
       },
     }

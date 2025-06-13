@@ -27,6 +27,8 @@ export interface onClickPropsType {
 
 export interface RoutePropsType extends onClickPropsType {
   text: string
+  selected: boolean
+  bgColor: string
 }
 
 export interface BlueRoundedBtnV1Type {

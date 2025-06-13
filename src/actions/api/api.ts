@@ -7,7 +7,7 @@ import axios from 'axios'
 export async function getSearchLoc(text: string = '광화문') {
   // axios.get(`https://openapi.naver.com/v1/search/local?query=${word}`)
   const result = await axios.get(
-    `https://openapi.naver.com/v1/search/local?query=${text}&display=30`,
+    `https://openapi.naver.com/v1/search/local?query=${text}&display=10`,
     {
       headers: {
         'X-Naver-Client-Id': process.env.NAVER_CLIENT_ID!,
@@ -66,13 +66,11 @@ export async function getPathWalking(requestData: tmapObjType) {
     requestData,
     { headers: headers }
   )
-  console.log('resultDD', result.data)
+  console.log('resultDD', result.data.features[2].properties)
 
-  const walkPath = {
-    path: result.data.features
-      .filter((item: tmapResponseWalk) => item.geometry.type === 'Point')
-      .map((result: tmapResponseWalk) => result.geometry.coordinates),
-  }
+  const walkPath = result.data.features
+    .filter((item: tmapResponseWalk) => item.geometry.type === 'Point')
+    .map((result: tmapResponseWalk) => result.geometry.coordinates)
 
-  return walkPath
+  return { path: walkPath, summary: result.data.features[0].properties }
 }

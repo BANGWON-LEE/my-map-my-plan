@@ -5,12 +5,12 @@ import { useState } from 'react'
 import NotImage from '../../assets/notImage.png'
 import { ImageSearchResultType } from '@/type/modal'
 
-type PlaceListImgType = {
+type placeListImgType = {
   locImg: ImageSearchResultType[]
   index: number
 }
 
-export default function PlaceListImg(props: PlaceListImgType) {
+export default function PlaceListImg(props: placeListImgType) {
   const { locImg, index } = props
 
   if (locImg[index]?.value === undefined) {
@@ -37,8 +37,6 @@ export function PlaceImg(props: { el: string }) {
       <Image
         fill
         unoptimized
-        // width={100}
-        // height={30}
         src={imgSrc}
         alt="마이맵 마이플랜 검색 사진"
         sizes={'80'}
