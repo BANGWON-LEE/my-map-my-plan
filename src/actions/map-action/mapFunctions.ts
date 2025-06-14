@@ -280,7 +280,7 @@ export const setWalkPolyLine = (
 
   new naver.maps.Polyline({
     path: pathFromAPI,
-    strokeColor: '#98fb98',
+    strokeColor: '#90ee90',
     strokeWeight: 5,
     map: map,
   })
