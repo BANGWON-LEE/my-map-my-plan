@@ -12,7 +12,7 @@ import {
 } from '@/actions/map-action/mapFunctions'
 import RouteBtn from '../button/RouteBtn'
 import {
-  goalLocSummaryAtom,
+  // goalLocSummaryAtom,
   signalCateGoryStateAtom,
   signalRouteStateAtom,
   startLocSummaryAtom,
@@ -24,7 +24,7 @@ export default function StartAndGoalTextField() {
   const startInfoState = useRecoilValue(routeStartSelector)
   const goalInfoState = useRecoilValue(routeGoalSelector)
   const [, setStartSummaryState] = useRecoilState(startLocSummaryAtom)
-  const [, setGoalSummaryState] = useRecoilState(goalLocSummaryAtom)
+  // const [, setGoalSummaryState] = useRecoilState(goalLocSummaryAtom)
 
   const formatStartCoordinate = () =>
     `${startInfoState.start.path.x},${startInfoState.start.path.y}`
@@ -95,9 +95,9 @@ export default function StartAndGoalTextField() {
     startMarker(map, startInfoState.start.path)
     goalMarker(map, goalInfoState.goal.path)
     setCategoryState(placeListModalCategory.route)
-    setGoalSummaryState({
-      distance: path.summary.distance,
-      duration: path.summary.duration,
+    setStartSummaryState({
+      distance: path.summary.totalDistance,
+      duration: path.summary.totalTime * 1000,
     })
   }
 

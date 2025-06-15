@@ -66,7 +66,7 @@ export async function getPathWalking(requestData: tmapObjType) {
     requestData,
     { headers: headers }
   )
-  console.log('resultDD', result.data.features[2].properties)
+  console.log('resultDD', result.data.features)
 
   const walkPath = result.data.features
     .filter((item: tmapResponseWalk) => item.geometry.type === 'Point')

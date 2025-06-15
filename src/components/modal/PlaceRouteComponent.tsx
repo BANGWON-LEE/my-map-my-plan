@@ -6,6 +6,8 @@ import { convertGetKm, getHourTimeMinTimeFormat } from '@/actions/common/common'
 export default function PlaceRouteComponent(props: totalRouteSummary) {
   const { startSummaryState, startInfoStateName, goalInfoStateName } = props
 
+  console.log('props check', startSummaryState)
+
   const placeTextStyle =
     'font-bold text-[1.4rem] whitespace-nowrap overflow-hidden overflow-ellipsis'
 
@@ -27,8 +29,8 @@ export default function PlaceRouteComponent(props: totalRouteSummary) {
             </div>
           </div>
           <div className="flex justify-center mt-3">
-            <div className="flex justify-between  w-[10rem]">
-              <div>
+            <div className="flex justify-evenly  w-[13rem]">
+              <div className="text-right">
                 <span className="text-[1.5rem] font-extrabold">
                   {getHourTimeMinTimeFormat(startSummaryState.duration).hours}
                 </span>
