@@ -1,23 +1,34 @@
 // 'use server'
-// // import { signalRouteState } from '@/recoil/atoms'
+// import { signalRouteState } from '@/recoil/atoms'
 // import { tmapObjType, tmapResponseWalk } from '@/type/route'
-// import axios from 'axios'
-// // import { useRecoilState } from 'recoil'
+import axios from 'axios'
+import { NextApiRequest, NextApiResponse } from 'next'
+// import { useRecoilState } from 'recoil'
 
-// export async function getSearchLoc(text: string = '광화문') {
-//   // axios.get(`https://openapi.naver.com/v1/search/local?query=${word}`)
-//   const result = await axios.get(
-//     `https://openapi.naver.com/v1/search/local?query=${text}&display=10`,
-//     {
-//       headers: {
-//         'X-Naver-Client-Id': process.env.NAVER_CLIENT_ID!,
-//         'X-Naver-Client-Secret': process.env.NAVER_CLIENT_SECRET!,
-//       },
-//     }
-//   )
+export default async function getSearchLoc(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  //   type searchType = {
+  //     resultWord: string
+  //   }
 
-//   return result.data
-// }
+  console.log('바바바보보보', req.query)
+
+  const { text = '광화문' } = req.query
+  // axios.get(`https://openapi.naver.com/v1/search/local?query=${word}`)
+  const result = await axios.get(
+    `https://openapi.naver.com/v1/search/local?query=${text}&display=10`,
+    {
+      headers: {
+        'X-Naver-Client-Id': process.env.NAVER_CLIENT_ID!,
+        'X-Naver-Client-Secret': process.env.NAVER_CLIENT_SECRET!,
+      },
+    }
+  )
+
+  return res.status(200).json(result.data)
+}
 
 // export async function getSearchLocImage(text: string = '광화문') {
 //   const result = await axios.get(

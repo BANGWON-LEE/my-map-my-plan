@@ -3,7 +3,6 @@ export type tmapObjType = {
   startY: number
   endX: number
   endY: number
-  // passList: '경도,위도_경도,위도_경도,위도',
   reqCoordType: string
   resCoordType: string
   startName: string
@@ -22,9 +21,24 @@ export type routeSummary = {
   duration: number
 }
 
+export interface locAtomType {
+  name: string
+  path: {
+    x: number
+    y: number
+  }
+  address: string
+  roadAddress: string
+  category: string
+}
+
 export type totalRouteSummary = {
   startSummaryState: routeSummary
   goalSummaryState: routeSummary
-  startInfoStateName: string
-  goalInfoStateName: string
+  startInfoState: {
+    start: locAtomType
+  }
+  goalInfoState: {
+    goal: locAtomType
+  }
 }

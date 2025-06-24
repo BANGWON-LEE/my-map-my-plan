@@ -1,15 +1,17 @@
+import { locAtomType } from '@/type/route'
 import { atom } from 'recoil'
 
-export const startLocNameAtom = atom<string>({
+export const startLocAtom = atom<locAtomType>({
   key: 'recoil/atom/startLocNameAtom',
-  default: '',
-})
-
-export const startLocPathAtom = atom<{ x: number; y: number }>({
-  key: 'recoil/atom/startLocPathAtom',
   default: {
-    x: 0,
-    y: 0,
+    name: '',
+    path: {
+      x: 0,
+      y: 0,
+    },
+    address: '',
+    roadAddress: '',
+    category: '',
   },
 })
 
@@ -23,9 +25,18 @@ export const startLocSummaryAtom = atom<{ distance: number; duration: number }>(
   }
 )
 
-export const goalLocNameAtom = atom<string>({
+export const goalLocAtom = atom<locAtomType>({
   key: 'recoil/atom/goalLocNameAtom',
-  default: '',
+  default: {
+    name: '',
+    path: {
+      x: 0,
+      y: 0,
+    },
+    address: '',
+    roadAddress: '',
+    category: '',
+  },
 })
 
 export const goalLocPathAtom = atom<{ x: number; y: number }>({

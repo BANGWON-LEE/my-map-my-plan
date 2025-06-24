@@ -1,5 +1,5 @@
 'use client'
-import { getSearchLoc } from '@/actions/api/api'
+// import { getSearchLoc } from '@/pages/api/api'
 import Header from '../layout/Header'
 import FindMeBtn from './FindMeBtn'
 import {
@@ -47,7 +47,10 @@ export default function Map() {
     const myloc = myAddress.jibunAddress + text
     const resultWord = getNearCompany ? myloc : text
 
-    const address = await getSearchLoc(resultWord)
+    const res = await fetch(
+      `/api/searchLoc?text=${encodeURIComponent(resultWord)}`
+    )
+    const address = await res.json()
     setSearchPlaceList(address.items)
     formatSearchPlaceLocation(address.items)
     setCategoryState(placeListModalCategory.placeList)

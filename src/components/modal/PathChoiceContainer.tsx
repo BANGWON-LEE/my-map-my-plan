@@ -8,7 +8,7 @@ import { useRecoilState } from 'recoil'
 
 export default function PathChoiceContainer(props: placeListComponentType) {
   const { el } = props
-  console.log('data', el)
+
   // console.log('type index', choiceKey)
 
   const [, setStartInfoState] = useRecoilState(routeStartSelector)
@@ -22,6 +22,9 @@ export default function PathChoiceContainer(props: placeListComponentType) {
           x: formatMyLocation(data.mapx),
           y: formatMyLocation(data.mapy),
         },
+        address: data.address,
+        roadAddress: data.roadAddress,
+        category: data.category,
       },
     })
   }
@@ -34,6 +37,9 @@ export default function PathChoiceContainer(props: placeListComponentType) {
           x: formatMyLocation(data.mapx),
           y: formatMyLocation(data.mapy),
         },
+        address: data.address,
+        roadAddress: data.roadAddress,
+        category: data.category,
       },
     })
   }

@@ -2,7 +2,7 @@
 
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { routeGoalSelector, routeStartSelector } from '@/recoil/selector'
-import { getPathDriving, getPathWalking } from '@/actions/api/api'
+// import { getPathDriving, getPathWalking } from '@/pages/api/searchLoc'
 import {
   goalMarker,
   onLoadRouteMap,
@@ -42,8 +42,10 @@ export default function StartAndGoalTextField() {
     const startCoordinate = formatStartCoordinate()
     const goalCoordinate = formatGoalCoordinate()
 
-    const path = await getPathDriving(startCoordinate, goalCoordinate)
-    console.log('path Drive', path)
+    const res = await fetch(
+      `/api/driving?start=${startCoordinate}&goal=${goalCoordinate}`
+    )
+    const path = await res.json()
 
     const position = {
       x: goalInfoState.goal.path.x,
@@ -79,9 +81,16 @@ export default function StartAndGoalTextField() {
       endName: goalInfoState.goal.name,
     }
 
-    const path = await getPathWalking(requestData)
-
-    console.log('path walk', path)
+    // const path = await getPathWalking(requestData)
+    const res = await fetch('/api/walking', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestData),
+    })
+    // console.log('path Drive', path)
+    const path = await res.json()
 
     const position = {
       x: goalInfoState.goal.path.x,

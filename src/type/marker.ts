@@ -7,6 +7,9 @@ export interface routeSelectorType {
   title: string
   mapx: number
   mapy: number
+  address: string
+  roadAddress: string
+  category: string
 }
 
 export interface SearchPlaceType extends routeSelectorType {

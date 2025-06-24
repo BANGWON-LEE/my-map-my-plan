@@ -1,5 +1,3 @@
-'use client'
-
 import { onClickPropsKeyBoadEventType } from '@/type/commonButton'
 // import LogoTextField from '../common/input/LogoTextField'
 import HeaderInputField from '../common/input/HeaderInputFiled'

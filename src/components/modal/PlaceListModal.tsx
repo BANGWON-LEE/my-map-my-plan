@@ -45,6 +45,7 @@ export default function PlaceListModal(props: {
     async function getImgList() {
       const imgPlaceLocList = searchPlaceList.map(el => {
         const word = el.title + el.address
+
         return getLocImg(formatAddressTitle(word, '</b>'))
       })
       const settledResult = await Promise.allSettled(imgPlaceLocList)
@@ -151,8 +152,8 @@ export default function PlaceListModal(props: {
               <PlaceRouteComponent
                 startSummaryState={startSummaryState}
                 goalSummaryState={goalSummaryState}
-                startInfoStateName={startInfoState.start.name}
-                goalInfoStateName={goalInfoState.goal.name}
+                startInfoState={startInfoState}
+                goalInfoState={goalInfoState}
               />
             )}
           </Suspense>

@@ -1,6 +1,10 @@
-import { getSearchLocImage } from '../api/api'
+// import { getSearchLocImage } from '../../pages/api/searchLoc'
 
 export async function getLocImg(text: string) {
-  const img = await getSearchLocImage(text)
-  return img.items
+  const res = await fetch(
+    `/api/searchLocImage?text=${encodeURIComponent(text)}`
+  )
+  const address = await res.json()
+  // const img = await getSearchLocImage(address)
+  return address.items
 }

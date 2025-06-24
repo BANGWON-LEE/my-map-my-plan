@@ -1,21 +1,23 @@
 import { selector } from 'recoil'
 import {
-  goalLocNameAtom,
-  goalLocPathAtom,
-  startLocNameAtom,
-  startLocPathAtom,
+  goalLocAtom,
+  // goalLocPathAtom,
+  startLocAtom,
+  // startLocPathAtom,
 } from './atoms'
 
 export const routeStartSelector = selector({
   key: 'routeStartSelector',
   get: ({ get }) => {
-    const startName = get(startLocNameAtom)
-    const startPath = get(startLocPathAtom)
+    const startLoc = get(startLocAtom)
 
     const start = {
       start: {
-        name: startName,
-        path: startPath,
+        name: startLoc.name,
+        path: startLoc.path,
+        address: startLoc.address,
+        roadAddress: startLoc.roadAddress,
+        category: startLoc.category,
       },
     }
 
@@ -24,10 +26,16 @@ export const routeStartSelector = selector({
   set: ({ set }, newValue) => {
     if (typeof newValue === 'object' && newValue !== null) {
       const value = newValue as {
-        start: { name: string; path: { x: number; y: number } }
+        start: {
+          name: string
+          path: { x: number; y: number }
+          address: string
+          roadAddress: string
+          category: string
+        }
       }
-      set(startLocNameAtom, value.start.name)
-      set(startLocPathAtom, value.start.path)
+      set(startLocAtom, value.start)
+      // set(startLocPathAtom, value.start.path)
     }
   },
 })
@@ -35,23 +43,31 @@ export const routeStartSelector = selector({
 export const routeGoalSelector = selector({
   key: 'routeGoalSelector',
   get: ({ get }) => {
-    const goalName = get(goalLocNameAtom)
-    const goalPath = get(goalLocPathAtom)
+    const goalLoc = get(goalLocAtom)
+    // const goalPath = get(goalLocPathAtom)
 
     return {
       goal: {
-        name: goalName,
-        path: goalPath,
+        name: goalLoc.name,
+        path: goalLoc.path,
+        address: goalLoc.address,
+        roadAddress: goalLoc.roadAddress,
+        category: goalLoc.category,
       },
     }
   },
   set: ({ set }, newValue) => {
     if (typeof newValue === 'object' && newValue !== null) {
       const value = newValue as {
-        goal: { name: string; path: { x: number; y: number } }
+        goal: {
+          name: string
+          path: { x: number; y: number }
+          address: string
+          roadAddress: string
+          category: string
+        }
       }
-      set(goalLocNameAtom, value.goal.name)
-      set(goalLocPathAtom, value.goal.path)
+      set(goalLocAtom, value.goal)
     }
   },
 })
