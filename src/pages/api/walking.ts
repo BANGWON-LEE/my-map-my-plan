@@ -1,3 +1,4 @@
+import { tMapFormatSpreadPath } from '@/actions/route-action/RouteFunctions'
 import { tmapResponseWalk } from '@/type/route'
 import axios from 'axios'
 import { NextApiRequest, NextApiResponse } from 'next'
@@ -19,11 +20,13 @@ export default async function getPathWalking(
   )
   console.log('resultDD', result.data.features)
 
-  const walkPath = result.data.features
-    .filter((item: tmapResponseWalk) => item.geometry.type === 'Point')
-    .map((result: tmapResponseWalk) => result.geometry.coordinates)
+  const walkPath = result.data.features.map(
+    (result: tmapResponseWalk) => result.geometry.coordinates
+  )
+
+  const resultArr = tMapFormatSpreadPath(walkPath)
 
   return res
     .status(200)
-    .json({ path: walkPath, summary: result.data.features[0].properties })
+    .json({ path: resultArr, summary: result.data.features[0].properties })
 }

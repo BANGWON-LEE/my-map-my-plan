@@ -26,10 +26,10 @@ export default function StartAndGoalTextField() {
   const [, setStartSummaryState] = useRecoilState(startLocSummaryAtom)
   // const [, setGoalSummaryState] = useRecoilState(goalLocSummaryAtom)
 
-  const formatStartCoordinate = () =>
-    `${startInfoState.start.path.x},${startInfoState.start.path.y}`
-  const formatGoalCoordinate = () =>
-    `${goalInfoState.goal.path.x},${goalInfoState.goal.path.y}`
+  // const formatStartCoordinate = () =>
+  //   `${startInfoState.start.path.x},${startInfoState.start.path.y}`
+  // const formatGoalCoordinate = () =>
+  //   `${goalInfoState.goal.path.x},${goalInfoState.goal.path.y}`
 
   const [, setRoutePathSignal] = useRecoilState(signalRouteStateAtom)
   const [, setCategoryState] = useRecoilState(signalCateGoryStateAtom)
@@ -39,12 +39,25 @@ export default function StartAndGoalTextField() {
   async function getPathDrivie() {
     setRouteTypeState('자동차')
     setRoutePathSignal(true)
-    const startCoordinate = formatStartCoordinate()
-    const goalCoordinate = formatGoalCoordinate()
+    const requestData = {
+      startX: startInfoState.start.path.x,
+      startY: startInfoState.start.path.y,
+      endX: goalInfoState.goal.path.x,
+      endY: goalInfoState.goal.path.y,
+      // passList: '경도,위도_경도,위도_경도,위도',
+      reqCoordType: 'WGS84GEO',
+      resCoordType: 'WGS84GEO',
+      startName: startInfoState.start.name,
+      endName: goalInfoState.goal.name,
+    }
 
-    const res = await fetch(
-      `/api/driving?start=${startCoordinate}&goal=${goalCoordinate}`
-    )
+    const res = await fetch('/api/driving', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(requestData),
+    })
     const path = await res.json()
 
     const position = {
@@ -60,8 +73,8 @@ export default function StartAndGoalTextField() {
     goalMarker(map, goalInfoState.goal.path)
     setCategoryState(placeListModalCategory.route)
     setStartSummaryState({
-      distance: path.summary.distance,
-      duration: path.summary.duration,
+      distance: path.summary.totalDistance,
+      duration: path.summary.totalTime * 1000,
     })
   }
 
