@@ -12,6 +12,7 @@ import {
 } from '@/actions/map-action/mapFunctions'
 import RouteBtn from '../button/RouteBtn'
 import {
+  openPlaceListModalAtom,
   // goalLocSummaryAtom,
   signalCateGoryStateAtom,
   signalRouteStateAtom,
@@ -19,22 +20,46 @@ import {
 } from '@/recoil/atoms'
 import { placeListModalCategory } from '@/data/constants'
 import { useState } from 'react'
+import {
+  // polyLineType,
+  // routePositionType,
+  tmapRoutePathType,
+} from '@/type/route'
 
 export default function StartAndGoalTextField() {
   const startInfoState = useRecoilValue(routeStartSelector)
   const goalInfoState = useRecoilValue(routeGoalSelector)
   const [, setStartSummaryState] = useRecoilState(startLocSummaryAtom)
-  // const [, setGoalSummaryState] = useRecoilState(goalLocSummaryAtom)
-
-  // const formatStartCoordinate = () =>
-  //   `${startInfoState.start.path.x},${startInfoState.start.path.y}`
-  // const formatGoalCoordinate = () =>
-  //   `${goalInfoState.goal.path.x},${goalInfoState.goal.path.y}`
 
   const [, setRoutePathSignal] = useRecoilState(signalRouteStateAtom)
   const [, setCategoryState] = useRecoilState(signalCateGoryStateAtom)
 
   const [routeTypeState, setRouteTypeState] = useState('')
+  const [, setOpenPlaceListModal] = useRecoilState<boolean>(
+    openPlaceListModalAtom
+  )
+
+  function drawPolyLine(
+    // position: routePositionType,
+    path: tmapRoutePathType,
+    polyLine: (map: naver.maps.Map, path: [[number, number]]) => void
+  ) {
+    const position = {
+      x: goalInfoState.goal.path.x,
+      y: goalInfoState.goal.path.y,
+    }
+
+    const map = onLoadRouteMap(position)
+    setRoutePathSignal(false)
+    polyLine(map, path.path)
+    startMarker(map, startInfoState.start.path)
+    goalMarker(map, goalInfoState.goal.path)
+    setCategoryState(placeListModalCategory.route)
+    setStartSummaryState({
+      distance: path.summary.totalDistance,
+      duration: path.summary.totalTime * 1000,
+    })
+  }
 
   async function getPathDrivie() {
     setRouteTypeState('자동차')
@@ -44,7 +69,6 @@ export default function StartAndGoalTextField() {
       startY: startInfoState.start.path.y,
       endX: goalInfoState.goal.path.x,
       endY: goalInfoState.goal.path.y,
-      // passList: '경도,위도_경도,위도_경도,위도',
       reqCoordType: 'WGS84GEO',
       resCoordType: 'WGS84GEO',
       startName: startInfoState.start.name,
@@ -60,22 +84,8 @@ export default function StartAndGoalTextField() {
     })
     const path = await res.json()
 
-    const position = {
-      x: goalInfoState.goal.path.x,
-      y: goalInfoState.goal.path.y,
-    }
-
-    const map = onLoadRouteMap(position)
-    setRoutePathSignal(false)
-    setCarPolyLine(map, path.path)
-
-    startMarker(map, startInfoState.start.path)
-    goalMarker(map, goalInfoState.goal.path)
-    setCategoryState(placeListModalCategory.route)
-    setStartSummaryState({
-      distance: path.summary.totalDistance,
-      duration: path.summary.totalTime * 1000,
-    })
+    drawPolyLine(path, setCarPolyLine)
+    setOpenPlaceListModal(true)
   }
 
   async function getPathWalk() {
@@ -102,25 +112,10 @@ export default function StartAndGoalTextField() {
       },
       body: JSON.stringify(requestData),
     })
-    // console.log('path Drive', path)
     const path = await res.json()
 
-    const position = {
-      x: goalInfoState.goal.path.x,
-      y: goalInfoState.goal.path.y,
-    }
-
-    const map = onLoadRouteMap(position)
-    setRoutePathSignal(false)
-    setWalkPolyLine(map, path.path)
-
-    startMarker(map, startInfoState.start.path)
-    goalMarker(map, goalInfoState.goal.path)
-    setCategoryState(placeListModalCategory.route)
-    setStartSummaryState({
-      distance: path.summary.totalDistance,
-      duration: path.summary.totalTime * 1000,
-    })
+    drawPolyLine(path, setWalkPolyLine)
+    setOpenPlaceListModal(true)
   }
 
   return (
