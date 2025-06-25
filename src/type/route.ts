@@ -42,3 +42,27 @@ export type totalRouteSummary = {
     goal: locAtomType
   }
 }
+
+export type routePositionType = {
+  // position: {
+  x: number
+  y: number
+  // }
+}
+
+export type tmapRoutePathType = {
+  path: [[number, number]]
+  summary: {
+    description: string
+    index: number
+    name: string
+    nextRoadName: string
+    pointIndex: number
+    pointType: string
+    taxiFare: number
+    totalDistance: number
+    totalFare: number
+    totalTime: number
+    turnType: number
+  }
+}
