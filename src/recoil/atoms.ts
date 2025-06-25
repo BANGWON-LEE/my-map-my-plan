@@ -70,3 +70,8 @@ export const searchPlaceStateAtom = atom<SearchPlaceType[]>({
   key: 'recoil/atom/searchPlaceStateAtom',
   default: [],
 })
+
+export const openPlaceListModalAtom = atom<boolean>({
+  key: 'recoil/atom/openPlaceListModalAtom',
+  default: false,
+})
