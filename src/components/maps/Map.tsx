@@ -9,11 +9,12 @@ import {
 } from '@/actions/map-action/mapFunctions'
 import { getFamousCompany } from '@/data/famousCompany'
 import dynamic from 'next/dynamic'
-import { Suspense, useEffect, useState } from 'react'
+import { Suspense, useEffect } from 'react'
 import { SearchPlaceType } from '@/type/marker'
 import MapClient from './MapClient'
 import { useRecoilState } from 'recoil'
 import {
+  openPlaceListModalAtom,
   // goalLocSummaryAtom,
   searchPlaceStateAtom,
   signalCateGoryStateAtom,
@@ -37,9 +38,12 @@ export default function Map() {
 
   const [, setCategoryState] = useRecoilState(signalCateGoryStateAtom)
 
-  const [openPlaceListModal, setOpenPlaceListModal] = useState<boolean>(false)
+  const [openPlaceListModal, setOpenPlaceListModal] = useRecoilState<boolean>(
+    openPlaceListModalAtom
+  )
 
   function closeAndClearSearchPlaceList(): void {
+    // setSearchPlaceList([])
     setOpenPlaceListModal(!openPlaceListModal)
   }
 
