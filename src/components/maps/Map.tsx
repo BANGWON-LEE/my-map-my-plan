@@ -9,12 +9,13 @@ import {
 } from '@/actions/map-action/mapFunctions'
 import { getFamousCompany } from '@/data/famousCompany'
 import dynamic from 'next/dynamic'
-import { Suspense, useEffect, useState } from 'react'
+import { Suspense, useEffect } from 'react'
 import { SearchPlaceType } from '@/type/marker'
 import MapClient from './MapClient'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import {
   goalLocSummaryAtom,
+  searchPlaceStateAtom,
   signalCateGoryStateAtom,
   startLocSummaryAtom,
 } from '@/recoil/atoms'
@@ -24,7 +25,8 @@ const PlaceListModal = dynamic(() => import('../modal/PlaceListModal'), {
 })
 
 export default function Map() {
-  const [searchPlaceList, setSearchPlaceList] = useState<SearchPlaceType[]>([])
+  const [searchPlaceList, setSearchPlaceList] =
+    useRecoilState<SearchPlaceType[]>(searchPlaceStateAtom)
 
   useEffect(() => {
     const mapStatus = window.naver?.maps?.Service
@@ -82,7 +84,7 @@ export default function Map() {
       <Header onClick={getPlaceList} onKeyDown={handleKeyDown} />
       {(searchPlaceList.length > 0 || routeStateSignal) && (
         <PlaceListModal
-          searchPlaceList={searchPlaceList}
+          // searchPlaceList={searchPlaceList}
           close={() => closeAndClearSearchPlaceList()}
         />
       )}

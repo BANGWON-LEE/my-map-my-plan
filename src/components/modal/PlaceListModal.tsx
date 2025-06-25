@@ -1,17 +1,12 @@
 'use client'
 
 import { formatAddressTitle } from '@/actions/common/common'
-import { SearchPlaceType } from '@/type/marker'
-// import Image from 'next/image'
+// import { SearchPlaceType } from '@/type/marker'
 import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import Draggable from 'react-draggable'
 
-// import dynamic from 'next/dynamic'
 import { ImageSearchResultType } from '@/type/modal'
 import { getLocImg } from '@/actions/modal-action/modalFunctions'
-import // mySearchMarker,
-// onSearchLoadMap,
-'@/actions/map-action/mapFunctions'
 import Image from 'next/image'
 import CloseBtn from '../../assets/close.png'
 // import PathChoiceContainer from './PathChoiceContainer'
@@ -19,27 +14,25 @@ import Spinner from '../common/loading/Spinner'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import {
   goalLocSummaryAtom,
+  searchPlaceStateAtom,
   signalCateGoryStateAtom,
   startLocSummaryAtom,
 } from '@/recoil/atoms'
 import PlaceRouteComponent from './PlaceRouteComponent'
 import { routeGoalSelector, routeStartSelector } from '@/recoil/selector'
 import { placeListModalCategory } from '@/data/constants'
-// import PlaceListComponent from './PlaceListComponent'
 
 const PlaceListComponent = lazy(() => import('./PlaceListComponent'))
 
-// const PlaceListImg = dynamic(() => import('./PlaceListImg'), {
-//   ssr: false,
-// })
-
 export default function PlaceListModal(props: {
-  searchPlaceList: SearchPlaceType[]
+  // searchPlaceList: SearchPlaceType[]
   close: () => void
 }) {
-  const { searchPlaceList, close } = props
+  const { close } = props
 
   const [locImg, setLocImg] = useState<ImageSearchResultType[]>([])
+
+  const searchPlaceList = useRecoilValue(searchPlaceStateAtom)
 
   useEffect(() => {
     async function getImgList() {

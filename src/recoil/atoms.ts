@@ -1,3 +1,4 @@
+import { SearchPlaceType } from '@/type/marker'
 import { locAtomType } from '@/type/route'
 import { atom } from 'recoil'
 
@@ -63,4 +64,9 @@ export const signalRouteStateAtom = atom<boolean>({
 export const signalCateGoryStateAtom = atom<string>({
   key: 'recoil/atom/signalCateGoryState',
   default: '',
+})
+
+export const searchPlaceStateAtom = atom<SearchPlaceType[]>({
+  key: 'recoil/atom/searchPlaceStateAtom',
+  default: [],
 })

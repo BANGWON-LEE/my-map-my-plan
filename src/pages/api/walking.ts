@@ -11,8 +11,6 @@ export default async function getPathWalking(
 
   const requestData = req.body
 
-  console.log('ffff', requestData)
-
   const result = await axios.post(
     'https://apis.openapi.sk.com/tmap/routes/pedestrian?version=1&format=json&callback=result',
     requestData,
