@@ -29,6 +29,9 @@ import {
 export default function StartAndGoalTextField() {
   const startInfoState = useRecoilValue(routeStartSelector)
   const goalInfoState = useRecoilValue(routeGoalSelector)
+
+  console.log('저장 후 탐색', startInfoState, goalInfoState)
+
   const [, setStartSummaryState] = useRecoilState(startLocSummaryAtom)
 
   const [, setRoutePathSignal] = useRecoilState(signalRouteStateAtom)
@@ -42,7 +45,8 @@ export default function StartAndGoalTextField() {
   function drawPolyLine(
     // position: routePositionType,
     path: tmapRoutePathType,
-    polyLine: (map: naver.maps.Map, path: [[number, number]]) => void
+    polyLine: (map: naver.maps.Map, path: [[number, number]]) => void,
+    method: string
   ) {
     const position = {
       x: goalInfoState.goal.path.x,
@@ -58,6 +62,7 @@ export default function StartAndGoalTextField() {
     setStartSummaryState({
       distance: path.summary.totalDistance,
       duration: path.summary.totalTime * 1000,
+      method: method,
     })
   }
 
@@ -83,8 +88,8 @@ export default function StartAndGoalTextField() {
       body: JSON.stringify(requestData),
     })
     const path = await res.json()
-
-    drawPolyLine(path, setCarPolyLine)
+    const method = '자동차'
+    drawPolyLine(path, setCarPolyLine, method)
     setOpenPlaceListModal(true)
   }
 
@@ -114,9 +119,14 @@ export default function StartAndGoalTextField() {
     })
     const path = await res.json()
 
-    drawPolyLine(path, setWalkPolyLine)
+    const method = '도보'
+
+    drawPolyLine(path, setWalkPolyLine, method)
     setOpenPlaceListModal(true)
   }
+
+  const routeBtnStatus =
+    startInfoState.start.name === '' || goalInfoState.goal.name === ''
 
   return (
     <div className="flex w-full h-full justify-end relative">
@@ -144,12 +154,14 @@ export default function StartAndGoalTextField() {
           text={'자동차'}
           selected={routeTypeState === '자동차'}
           bgColor={'bg-[#00bfff]'}
+          disabled={routeBtnStatus}
         />
         <RouteBtn
           onClick={() => getPathWalk()}
           text={'걷기'}
           selected={routeTypeState === '걷기'}
           bgColor={'bg-[#90ee90]'}
+          disabled={routeBtnStatus}
         />
         {/* <RouteBtn onClick={() => getPathDrivie('자동차')} text={'자동차'} /> */}
       </div>

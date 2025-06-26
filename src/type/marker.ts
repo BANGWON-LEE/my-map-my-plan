@@ -14,11 +14,11 @@ export interface routeSelectorType {
 
 export interface SearchPlaceType extends routeSelectorType {
   link: string
-  category: string
+  // category: string
   description: string
   telephone: string
-  address: string
-  roadAddress: string
+  // address: string
+  // roadAddress: string
 }
 
 export interface pathPropsDataType {

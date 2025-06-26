@@ -29,10 +29,12 @@ export interface RoutePropsType extends onClickPropsType {
   text: string
   selected: boolean
   bgColor: string
+  disabled?: boolean
 }
 
 export interface BlueRoundedBtnV1Type {
   onClick: () => void
   text: string
-  btnPosition: string
+  btnPosition?: string
+  disabled?: boolean
 }

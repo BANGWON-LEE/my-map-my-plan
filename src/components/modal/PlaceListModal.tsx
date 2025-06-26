@@ -13,13 +13,13 @@ import CloseBtn from '../../assets/close.png'
 import Spinner from '../common/loading/Spinner'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import {
-  goalLocSummaryAtom,
+  // goalLocSummaryAtom,
   searchPlaceStateAtom,
   signalCateGoryStateAtom,
   startLocSummaryAtom,
 } from '@/recoil/atoms'
 import PlaceRouteComponent from './PlaceRouteComponent'
-import { routeGoalSelector, routeStartSelector } from '@/recoil/selector'
+// import { routeGoalSelector, routeStartSelector } from '@/recoil/selector'
 import { placeListModalCategory } from '@/data/constants'
 
 const PlaceListComponent = lazy(() => import('./PlaceListComponent'))
@@ -71,10 +71,11 @@ export default function PlaceListModal(props: {
     setCategoryState(cate)
   }
 
+  // const startSummaryState = useRecoilValue(startLocSummaryAtom)
+  // const goalSummaryState = useRecoilValue(goalLocSummaryAtom)
+  // const startInfoState = useRecoilValue(routeStartSelector)
   const startSummaryState = useRecoilValue(startLocSummaryAtom)
-  const goalSummaryState = useRecoilValue(goalLocSummaryAtom)
-  const startInfoState = useRecoilValue(routeStartSelector)
-  const goalInfoState = useRecoilValue(routeGoalSelector)
+  // const goalInfoState = useRecoilValue(routeGoalSelector)
 
   const routeStateSignal = startSummaryState.distance > 0
 
@@ -143,10 +144,10 @@ export default function PlaceListModal(props: {
               ))}
             {categoryState === placeListModalCategory.route && (
               <PlaceRouteComponent
-                startSummaryState={startSummaryState}
-                goalSummaryState={goalSummaryState}
-                startInfoState={startInfoState}
-                goalInfoState={goalInfoState}
+              // startSummaryState={startSummaryState}
+              // goalSummaryState={goalSummaryState}
+              // startInfoState={startInfoState}
+              // goalInfoState={goalInfoState}
               />
             )}
           </Suspense>

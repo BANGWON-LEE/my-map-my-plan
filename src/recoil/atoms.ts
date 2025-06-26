@@ -1,43 +1,29 @@
+import { initialPlaceObj } from '@/data/constants'
 import { SearchPlaceType } from '@/type/marker'
-import { locAtomType } from '@/type/route'
+import { locAtomType, placeDistanceType } from '@/type/route'
 import { atom } from 'recoil'
 
 export const startLocAtom = atom<locAtomType>({
   key: 'recoil/atom/startLocNameAtom',
+  default: initialPlaceObj,
+})
+
+export const startLocSummaryAtom = atom<{
+  distance: number
+  duration: number
+  method: string
+}>({
+  key: 'recoil/atom/startLocSummary',
   default: {
-    name: '',
-    path: {
-      x: 0,
-      y: 0,
-    },
-    address: '',
-    roadAddress: '',
-    category: '',
+    distance: 0,
+    duration: 0,
+    method: '',
   },
 })
 
-export const startLocSummaryAtom = atom<{ distance: number; duration: number }>(
-  {
-    key: 'recoil/atom/startLocSummary',
-    default: {
-      distance: 0,
-      duration: 0,
-    },
-  }
-)
-
 export const goalLocAtom = atom<locAtomType>({
   key: 'recoil/atom/goalLocNameAtom',
-  default: {
-    name: '',
-    path: {
-      x: 0,
-      y: 0,
-    },
-    address: '',
-    roadAddress: '',
-    category: '',
-  },
+  default: initialPlaceObj,
 })
 
 export const goalLocPathAtom = atom<{ x: number; y: number }>({
@@ -74,4 +60,21 @@ export const searchPlaceStateAtom = atom<SearchPlaceType[]>({
 export const openPlaceListModalAtom = atom<boolean>({
   key: 'recoil/atom/openPlaceListModalAtom',
   default: false,
+})
+
+export const setPlanHistoryListAtom = atom<locAtomType[]>({
+  key: 'recoil/atom/setPlanHistoryList',
+  default: [],
+})
+
+export const placeDistance = atom<placeDistanceType>({
+  key: 'recoil/atom/placeDistance',
+  default: {
+    start: '',
+    goal: '',
+    distance: 0,
+    hour: 0,
+    minutes: 0,
+    method: '',
+  },
 })

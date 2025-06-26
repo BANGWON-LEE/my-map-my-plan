@@ -12,14 +12,16 @@ import dynamic from 'next/dynamic'
 import { Suspense, useEffect } from 'react'
 import { SearchPlaceType } from '@/type/marker'
 import MapClient from './MapClient'
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import {
   openPlaceListModalAtom,
   // goalLocSummaryAtom,
   searchPlaceStateAtom,
+  setPlanHistoryListAtom,
   signalCateGoryStateAtom,
 } from '@/recoil/atoms'
 import { placeListModalCategory } from '@/data/constants'
+import RouteHistoryModal from '../modal/RouteHistoryModal'
 const PlaceListModal = dynamic(() => import('../modal/PlaceListModal'), {
   ssr: false,
 })
@@ -74,16 +76,7 @@ export default function Map() {
     if (event.key === 'Enter') return getPlaceList(text)
   }
 
-  // const startSummaryState = useRecoilValue(startLocSummaryAtom)
-  // const goalSummaryState = useRecoilValue(goalLocSummaryAtom)
-  // const routeStateSignal = startSummaryState.distance > 0
-
-  // console.log(
-  //   '경로 상태',
-  //   routeStateSignal,
-  //   startSummaryState,
-  //   goalSummaryState
-  // )
+  const planHistoryList = useRecoilValue(setPlanHistoryListAtom)
 
   return (
     <div className="w-full h-full">
@@ -94,6 +87,8 @@ export default function Map() {
           close={() => closeAndClearSearchPlaceList()}
         />
       )}
+
+      {planHistoryList.length > 0 && <RouteHistoryModal />}
       <FindMeBtn />
       <Suspense fallback={<div>경로를 불러오는 중</div>}>
         <MapClient />

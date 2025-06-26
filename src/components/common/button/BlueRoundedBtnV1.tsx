@@ -4,11 +4,15 @@ export default function BlueRoundedBtnV1({
   onClick,
   text,
   btnPosition,
+  disabled,
 }: BlueRoundedBtnV1Type) {
   return (
     <button
       onClick={onClick}
-      className={`border-2 border-blue-400 rounded-3xl w-[5.2rem] p-2  bg-blue-400 text-[#fff] font-bold m-2 cursor-pointer ${btnPosition}`}
+      className={`border-2 border-blue-400 rounded-3xl w-[5.2rem] p-2  bg-blue-400 text-[#fff] font-bold m-2 cursor-pointer ${btnPosition} ${
+        disabled && 'opacity-55'
+      }`}
+      disabled={disabled}
     >
       {text}
     </button>

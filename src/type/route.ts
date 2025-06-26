@@ -66,3 +66,13 @@ export type tmapRoutePathType = {
     turnType: number
   }
 }
+
+export type placeDistanceType = {
+  start: string
+  goal: string
+  distance: number
+  // duration: number
+  hour: number
+  minutes: number
+  method: string
+}
