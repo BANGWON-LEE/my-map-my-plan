@@ -6,6 +6,7 @@ import {
   formatSearchPlaceLocation,
   getCurrentPositionPromise,
   getMyLocAddress,
+  onLoadMap,
 } from '@/actions/map-action/mapFunctions'
 import { getFamousCompany } from '@/data/famousCompany'
 import dynamic from 'next/dynamic'
@@ -22,6 +23,7 @@ import {
 } from '@/recoil/atoms'
 import { placeListModalCategory } from '@/data/constants'
 import RouteHistoryModal from '../modal/RouteHistoryModal'
+import Script from 'next/script'
 const PlaceListModal = dynamic(() => import('../modal/PlaceListModal'), {
   ssr: false,
 })
@@ -80,6 +82,16 @@ export default function Map() {
 
   return (
     <div className="w-full h-full">
+      <Script
+        type="text/javascript"
+        src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=1awovn0tlc&submodules=geocoder"
+        strategy="afterInteractive"
+        onLoad={() => {
+          navigator.geolocation.getCurrentPosition(pos => {
+            onLoadMap(pos) // 이 시점에는 #map이 DOM에 존재해야 함
+          })
+        }}
+      ></Script>
       <Header onClick={getPlaceList} onKeyDown={handleKeyDown} />
       {openPlaceListModal && (
         <PlaceListModal
