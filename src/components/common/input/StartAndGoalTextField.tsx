@@ -13,13 +13,13 @@ import {
 import RouteBtn from '../button/RouteBtn'
 import {
   openPlaceListModalAtom,
+  routeMethodAtom,
   // goalLocSummaryAtom,
   signalCateGoryStateAtom,
   signalRouteStateAtom,
   startLocSummaryAtom,
 } from '@/recoil/atoms'
 import { placeListModalCategory } from '@/data/constants'
-import { useState } from 'react'
 import {
   // polyLineType,
   // routePositionType,
@@ -37,7 +37,7 @@ export default function StartAndGoalTextField() {
   const [, setRoutePathSignal] = useRecoilState(signalRouteStateAtom)
   const [, setCategoryState] = useRecoilState(signalCateGoryStateAtom)
 
-  const [routeTypeState, setRouteTypeState] = useState('')
+  const [routeTypeState, setRouteTypeState] = useRecoilState(routeMethodAtom)
   const [, setOpenPlaceListModal] = useRecoilState<boolean>(
     openPlaceListModalAtom
   )

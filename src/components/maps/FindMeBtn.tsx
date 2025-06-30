@@ -37,7 +37,7 @@ export default function FindMeBtn() {
     <BlueRoundedBtnV1
       onClick={() => navigator.geolocation.getCurrentPosition(getMyLocation)}
       text={'Find Me'}
-      btnPosition={'absolute bottom-16 right-6 z-10'}
+      btnPosition={'absolute top-2 left-6 z-10'}
     />
   )
 }

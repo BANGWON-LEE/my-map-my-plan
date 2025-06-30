@@ -1,16 +1,16 @@
 'use client'
 
-import { signalRouteStateAtom } from '@/recoil/atoms'
+// import { signalRouteStateAtom } from '@/recoil/atoms'
 
-import { useRecoilState } from 'recoil'
-import RouteSpinner from '../common/loading/RouteSpinner'
+// import { useRecoilValue } from 'recoil'
+// import RouteSpinner from '../common/loading/RouteSpinner'
 
 export default function MapClient() {
-  const [routePathSignal] = useRecoilState(signalRouteStateAtom)
+  // const routePathSignal = useRecoilValue(signalRouteStateAtom)
 
   return (
     <>
-      {routePathSignal && <RouteSpinner />}
+      {/* {routePathSignal && <RouteSpinner />} */}
       <div id="map" className="w-full h-full"></div>
     </>
   )

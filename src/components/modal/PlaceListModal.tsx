@@ -142,15 +142,15 @@ export default function PlaceListModal(props: {
                   locImg={locImg}
                 />
               ))}
-            {categoryState === placeListModalCategory.route && (
-              <PlaceRouteComponent
-              // startSummaryState={startSummaryState}
-              // goalSummaryState={goalSummaryState}
-              // startInfoState={startInfoState}
-              // goalInfoState={goalInfoState}
-              />
-            )}
           </Suspense>
+          {categoryState === placeListModalCategory.route && (
+            <PlaceRouteComponent
+            // startSummaryState={startSummaryState}
+            // goalSummaryState={goalSummaryState}
+            // startInfoState={startInfoState}
+            // goalInfoState={goalInfoState}
+            />
+          )}
         </div>
       </div>
     </Draggable>
