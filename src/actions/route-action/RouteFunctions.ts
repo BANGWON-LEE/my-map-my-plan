@@ -4,7 +4,7 @@ export function tMapFormatSpreadPath(path: number[]) {
   path.forEach(el => {
     if (Array.isArray(el) && Array.isArray(el[0])) {
       resultArr.push(...el)
-    } else if (!Array.isArray(el[0])) {
+    } else if (!Array.isArray(el)) {
       resultArr.push(el)
     }
   })
