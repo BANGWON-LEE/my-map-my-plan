@@ -19,6 +19,7 @@ export interface tmapResponseWalk {
 export type routeSummary = {
   distance: number
   duration: number
+  method: string
 }
 
 export interface locAtomType {
@@ -75,4 +76,24 @@ export type placeDistanceType = {
   hour: number
   minutes: number
   method: string
+}
+
+export type startInfoType = {
+  start: {
+    name: string
+    path: { x: number; y: number }
+    address: string
+    roadAddress: string
+    category: string
+  }
+}
+
+export type goalInfoType = {
+  goal: {
+    name: string
+    path: { x: number; y: number }
+    address: string
+    roadAddress: string
+    category: string
+  }
 }

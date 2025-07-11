@@ -88,7 +88,7 @@ export default function Map() {
         strategy="afterInteractive"
         onLoad={() => {
           navigator.geolocation.getCurrentPosition(pos => {
-            onLoadMap(pos) // 이 시점에는 #map이 DOM에 존재해야 함
+            onLoadMap(pos)
           })
         }}
       ></Script>

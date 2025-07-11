@@ -1,66 +1,63 @@
 'use client'
 import { placeListType } from '@/type/placeHistory'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import BlueRoundedBtnV1 from '../common/button/BlueRoundedBtnV1'
-import { useRecoilValue } from 'recoil'
-import { placeDistanceAtom } from '@/recoil/atoms'
-import { placeDistanceType } from '@/type/route'
-import { RouteDistanceComponent } from './RouteDistanceComponent'
+// import { useRecoilValue } from 'recoil'
+// import { placeDistanceAtom } from '@/recoil/atoms'
+// import { placeDistanceType } from '@/type/route'
+// import { RouteDistanceComponent } from './RouteDistanceComponent'
 
 export default function RouteHistoryComponent(props: placeListType) {
-  const { place, index, removePlace } = props
+  const { place, index, remove } = props
 
-  const placeDistanceInfo = useRecoilValue(placeDistanceAtom)
+  // const placeDistanceInfo = useRecoilValue(placeDistanceAtom)
 
-  //   const routeDistanceArr: placeDistanceType[] = []
-  const [routeDistanceArr, setRouteDistanceArr] = useState<placeDistanceType[]>(
-    []
-  )
+  // //   const routeDistanceArr: placeDistanceType[] = []
+  // const [routeDistanceArr, setRouteDistanceArr] = useState<placeDistanceType[]>(
+  //   []
+  // )
 
-  function setDistanceArr(
-    // routeDistanceArr: placeDistanceType[],
-    placeDistanceInfo: placeDistanceType
-  ) {
-    // console.log('placeDis', placeDistanceInfo)
-    setRouteDistanceArr(prev => [...prev, placeDistanceInfo])
-  }
+  // function setDistanceArr(
+  //   // routeDistanceArr: placeDistanceType[],
+  //   placeDistanceInfo: placeDistanceType
+  // ) {
+  //   // console.log('placeDis', placeDistanceInfo)
+  //   setRouteDistanceArr(prev => [...prev, placeDistanceInfo])
+  // }
 
-  const updateDistanceArr = function (
-    // routeDistanceArr: placeDistanceType[],
-    placeDistanceInfo: placeDistanceType[]
-  ) {
-    setRouteDistanceArr(placeDistanceInfo)
-  }
+  // useEffect(() => {
+  //   if (placeDistanceInfo) {
+  //     console.log('remove!!!', routeDistanceArr)
+  //     setDistanceArr(placeDistanceInfo)
+  //   }
+  // }, [placeDistanceInfo])
 
-  useEffect(() => {
-    if (placeDistanceInfo) {
-      console.log('remove!!!', routeDistanceArr)
-      setDistanceArr(placeDistanceInfo)
-    }
-  }, [placeDistanceInfo])
+  // const routeDistanceMatched =
+  //   routeDistanceArr.length > 0 &&
+  //   routeDistanceArr.find(el => el.start === place.name)
 
-  const routeDistanceMatched =
-    routeDistanceArr.length > 0 &&
-    routeDistanceArr.find(el => el.start === place.name)
+  // function updateDistanceArr(
+  //   // routeDistanceArr: placeDistanceType[],
+  //   placeDistanceInfo: placeDistanceType[]
+  // ) {
+  //   console.log('라우트 99999')
+  //   // routeDistanceArr.length = 0
+  //   setRouteDistanceArr(placeDistanceInfo)
+  // }
 
-  function removeDistance(index: number) {
-    const removeIndex = index
+  // function removeDistance(index: number, placeName: string) {
+  //   const filterDistanceArr = routeDistanceArr.filter(
+  //     (distance, routeIndex) =>
+  //       distance.start !== placeName && distance.goal !== placeName
+  //   )
 
-    console.log('removeIndex', removeIndex, routeDistanceArr)
+  //   console.log('fffqqq', filterDistanceArr)
+  //   // routeDistanceArr.splice(removeIndex, 1)
+  //   updateDistanceArr(filterDistanceArr)
+  // }
 
-    const filterDistanceArr = routeDistanceArr.filter(
-      (distance, routeIndex) => {
-        console.log('차차차', routeIndex, removeIndex)
-        if (distance.goal === place.name) return distance
-      }
-    )
-
-    console.log('fffqqq', filterDistanceArr)
-    // routeDistanceArr.splice(removeIndex, 1)
-    updateDistanceArr(filterDistanceArr)
-  }
-
-  console.log('routeDDD', routeDistanceArr)
+  // console.log('거리 배열 확인 중', routeDistanceArr)
+  // console.log('라우트 확인 중', routeDistanceMatched)
 
   return (
     <>
@@ -77,15 +74,14 @@ export default function RouteHistoryComponent(props: placeListType) {
           <BlueRoundedBtnV1
             text={'삭제'}
             onClick={() => {
-              removePlace(index, place.name)
-              removeDistance(index)
+              remove(index, place.name)
             }}
           />
         </div>
       </div>
-      {routeDistanceMatched && (
+      {/* {routeDistanceMatched && (
         <RouteDistanceComponent placeDistanceInfo={routeDistanceMatched} />
-      )}
+      )} */}
     </>
   )
 }

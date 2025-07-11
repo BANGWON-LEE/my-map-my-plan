@@ -17,7 +17,7 @@ export function RouteDistanceComponent(props: {
     <div className="flex justify-center">
       <div className="grid items-center">
         <span className="text-[1.5rem] font-extrabold">
-          {placeDistanceInfo.method}
+          {placeDistanceInfo?.method}
         </span>
       </div>
       <div className="w-[4.5rem] h-[4.5rem] rotate-90">

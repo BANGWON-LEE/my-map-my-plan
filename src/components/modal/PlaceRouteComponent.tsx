@@ -41,7 +41,6 @@ export default function PlaceRouteComponent() {
     startInfoState: locAtomType,
     goalInfoState: locAtomType
   ): void {
-    console.log('저장 확인 save')
     const choicedPlan =
       planHistoryList[planHistoryList.length - 1]?.name === startInfoState.name
         ? [goalInfoState]
