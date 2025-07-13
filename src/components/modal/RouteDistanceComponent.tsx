@@ -11,8 +11,6 @@ export function RouteDistanceComponent(props: {
 }) {
   const { placeDistanceInfo } = props
 
-  console.log('route DistanceCom', placeDistanceInfo)
-
   return (
     <div className="flex justify-center">
       <div className="grid items-center">

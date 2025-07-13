@@ -8,7 +8,7 @@ import RouteHistoryComponent from './RouteHistoryComponent'
 import PlaceHistorySaveBtn from '../maps/PlanHistorySaveBtn'
 import { RouteDistanceComponent } from './RouteDistanceComponent'
 import { placeDistanceType } from '@/type/route'
-// import RouteChoiceBox from '../common/input/RouteChoiceBox'
+import RouteHistoryChoiceBox from './RouteHistoryChoiceBox'
 // import { RouteDistanceComponent } from './RouteDistanceComponent'
 // import { placeDistanceType } from '@/type/route'
 
@@ -35,11 +35,7 @@ export default function RouteHistoryModal() {
     []
   )
 
-  function setDistanceArr(
-    // routeDistanceArr: placeDistanceType[],
-    placeDistanceInfo: placeDistanceType
-  ) {
-    // console.log('placeDis', placeDistanceInfo)
+  function setDistanceArr(placeDistanceInfo: placeDistanceType) {
     setRouteDistanceArr(prev => [...prev, placeDistanceInfo])
   }
 
@@ -77,16 +73,9 @@ export default function RouteHistoryModal() {
     )
   }
 
-  // function checkEmptyRouteDistance(placeName: string) {
-  //   console.log('라우트 로우트', placeName, routeDistanceArr)
-  //   return (
-  //     routeDistanceArr.length === 0 ||
-  //     routeDistanceArr.find(
-  //       el => el.start === placeName && el.goal !== placeName
-  //       // (el.start === undefined && el.goal === placeName)
-  //     )
-  //   )
-  // }
+  function checkEmptyRouteDistance(index: number) {
+    return planHistoryList.length !== index + 1
+  }
 
   // useEffect(() => {
   //   const btnIndex = document.getElementById(`route-${}`)
@@ -111,17 +100,18 @@ export default function RouteHistoryModal() {
                 }
               />
             )}
-            {/* {!checkRouteDistanceArr(place.name) &&
-              checkEmptyRouteDistance(place.name) && (
-                <RouteChoiceBox
+            {!checkRouteDistanceArr(place.name) &&
+              checkEmptyRouteDistance(index) && (
+                <RouteHistoryChoiceBox
                   startInfoState={{
-                    start: planHistoryList.find(el => el.name === place.name),
+                    start: planHistoryList[index],
                   }}
                   goalInfoState={{ goal: planHistoryList[index + 1] }}
                   routeBtnStatus={false}
                   index={index}
+                  setRouteDistanceArr={setRouteDistanceArr}
                 />
-              )} */}
+              )}
           </>
         ))}
       </div>

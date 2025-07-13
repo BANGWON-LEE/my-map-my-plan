@@ -34,7 +34,7 @@ export default function PlaceRouteComponent() {
   const [startInfoState, setStartInfoState] = useRecoilState(routeStartSelector)
   const [goalInfoState, setGoalInfoState] = useRecoilState(routeGoalSelector)
   const [, setCategoryState] = useRecoilState(signalCateGoryStateAtom)
-  const [, setPlaceDistanceAtomInfo] = useRecoilState(placeDistanceAtom)
+  const [, setPlaceDistanceInfo] = useRecoilState(placeDistanceAtom)
   const [, setRouteTypeState] = useRecoilState(routeMethodAtom)
 
   function savePlan(
@@ -47,7 +47,7 @@ export default function PlaceRouteComponent() {
         : [startInfoState, goalInfoState]
 
     setPlanHistoryList(prev => [...prev, ...choicedPlan])
-    setPlaceDistanceAtomInfo({
+    setPlaceDistanceInfo({
       start: startInfoState.name,
       goal: goalInfoState.name,
       distance: convertGetKm(startSummaryState.distance),
