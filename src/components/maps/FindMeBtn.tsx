@@ -12,9 +12,6 @@ export default function FindMeBtn() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       navigator.geolocation.getCurrentPosition(setGeolocationOnMap)
-      // addEventListener('load', getPlaceLocation)
-      // addEventListener('load2', )
-      // console.log('load map list', getPlaceLocation())
     }
   }, [])
 
