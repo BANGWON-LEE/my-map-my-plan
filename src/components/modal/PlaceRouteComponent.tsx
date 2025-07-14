@@ -91,12 +91,12 @@ export default function PlaceRouteComponent() {
                 <span> | </span>
                 <span>{startInfoState.start.roadAddress}</span>
               </div>
-              <div className="mb-2">
+              {/* <div className="mb-2">
                 <textarea
                   placeholder="메모를 작성해주세요"
                   className="w-[27rem] h-[4rem] border-2 resize-none"
                 />
-              </div>
+              </div> */}
             </div>
             <div></div>
           </div>
@@ -148,12 +148,12 @@ export default function PlaceRouteComponent() {
                 <span> | </span>
                 <span>{goalInfoState.goal.roadAddress}</span>
               </div>
-              <div className="mb-2">
+              {/* <div className="mb-2">
                 <textarea
                   placeholder="메모를 작성해주세요"
                   className="w-[27rem] h-[4rem] border-2 resize-none"
                 />
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="flex justify-center">
