@@ -16,7 +16,6 @@ export default async function getPathDriving(
     requestData,
     { headers: headers }
   )
-  // console.log('resultDD', result.data.features[1].geometry.coordinates)
 
   const carPath = result.data.features.map(
     (result: tmapResponseWalk) => result.geometry.coordinates

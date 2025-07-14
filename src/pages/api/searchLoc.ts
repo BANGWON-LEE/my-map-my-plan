@@ -16,7 +16,6 @@ export default async function getSearchLoc(
   console.log('바바바보보보', req.query)
 
   const { text = '광화문' } = req.query
-  // axios.get(`https://openapi.naver.com/v1/search/local?query=${word}`)
   const result = await axios.get(
     `https://openapi.naver.com/v1/search/local?query=${text}&display=10`,
     {
