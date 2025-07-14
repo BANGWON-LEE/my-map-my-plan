@@ -9,6 +9,8 @@ import PlaceHistorySaveBtn from '../maps/PlanHistorySaveBtn'
 import { RouteDistanceComponent } from './RouteDistanceComponent'
 import { placeDistanceType } from '@/type/route'
 import RouteHistoryChoiceBox from './RouteHistoryChoiceBox'
+import CalandarBox from '../common/calandar/CalandarBox'
+import BlueRoundedBtnV1 from '../common/button/BlueRoundedBtnV1'
 // import { RouteDistanceComponent } from './RouteDistanceComponent'
 // import { placeDistanceType } from '@/type/route'
 
@@ -77,13 +79,24 @@ export default function RouteHistoryModal() {
     return planHistoryList.length !== index + 1
   }
 
-  // useEffect(() => {
-  //   const btnIndex = document.getElementById(`route-${}`)
-  // },[])
+  const [planDate, setPlanDate] = useState<string | string[]>('')
 
   return (
     <div className="fixed right-[0rem] z-10 w-[27rem] bg-[#fff]   h-[85rem] ">
-      <div className="grid content-baseline w-full overflow-y-scroll h-[85rem] ">
+      <div className="flex justify-between mx-10">
+        <div className="grid items-center">
+          <CalandarBox setState={setPlanDate} />
+        </div>
+        <div>
+          <BlueRoundedBtnV1
+            text={'저장'}
+            onClick={() => console.log('저장')}
+            btnPosition={''}
+            disabled={false}
+          />
+        </div>
+      </div>
+      <div className="grid content-baseline w-full overflow-y-scroll h-[60rem] ">
         {planHistoryList.map((place, index) => (
           <>
             <RouteHistoryComponent
