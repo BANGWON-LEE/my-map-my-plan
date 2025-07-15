@@ -14,7 +14,10 @@
   광화문 == (자동차, 3km, 10분) ==> 경복궁 == (자동차, 19km, 25분) ==> 동대문 == (걷기, 5km, 13분) ==> 동대문역사문화공원  
   일 경우, 경복궁을 삭제하면, 다음과 같다  
   광화문 == (자동차 및 걷기 --> 저장 및 이전 --> 새로운 경로로 표시) ==> 동대문 == (걷기, 5km, 13분) ==> 동대문역사문화공원  
-
+- 7월 15일 고민 : 로그인(소셜 로그인)관련해서 다시 점검해보았다.기존에는 next-auth + fireStore를 사용하려 하였으나, firesbase-auth + fireStore 조합을 사용하기로 결정  
+  이유는 다음과 같다. 프론트 만으로 빠르게 만들 수 있다는 것. 서버가 불필요하고 가입하는 유저 정보도 자동으로 저장할 수 있다.  
+  firebase-auth는 csr을 기본으로하나 firebase admin sdk를 사용하면 ssr로도 가능하다 그로인해 보안에도 좋은 영향을 줄 수 있다  
+  
 ---
 
 ## 👍 작업 과정
@@ -49,7 +52,7 @@
 | 상태 관리 | Recoil |
 | 지도 API | Naver Map JavaScript API |
 | 외부 API |  YouTube Data API |
-| 인증 | NextAuth.js + Naver OAuth |
+| 로그인 | firebase-auth + fireStore |
 | UI | Tailwind CSS |
 | 설치형 웹앱 | next-pwa, manifest.json |
 | 배포 | Vercel |
