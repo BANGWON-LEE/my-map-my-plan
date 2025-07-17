@@ -17,7 +17,9 @@
 - 7월 15일 고민 : 로그인(소셜 로그인)관련해서 다시 점검해보았다.기존에는 next-auth + fireStore를 사용하려 하였으나, firesbase-auth + fireStore 조합을 사용하기로 결정  
   이유는 다음과 같다. 프론트 만으로 빠르게 만들 수 있다는 것. 서버가 불필요하고 가입하는 유저 정보도 자동으로 저장할 수 있다.  
   firebase-auth는 csr을 기본으로하나 firebase admin sdk를 사용하면 ssr로도 가능하다 그로인해 보안에도 좋은 영향을 줄 수 있다  
-  
+- 7월 17일 작업 : 소셜 로그인 기능 작업, firebase-auth로 인증 후, firestore에 유저 정보 저장 기능하도록 구현함. firease-auth는 token(accessToken과 refreshToken)을 자동으로 관리해줌 따라서,
+  토근 관련한 코드를 별도로 작성할 이유가 없음.
+  유저 정보 저장은 localStorage에 저장함.
 ---
 
 ## 👍 작업 과정
