@@ -24,6 +24,7 @@ import {
 import { placeListModalCategory } from '@/data/constants'
 import RouteHistoryModal from '../modal/RouteHistoryModal'
 import Script from 'next/script'
+import Profile from '../auth/Profile'
 const PlaceListModal = dynamic(() => import('../modal/PlaceListModal'), {
   ssr: false,
 })
@@ -102,6 +103,7 @@ export default function Map() {
 
       {planHistoryList.length > 0 && <RouteHistoryModal />}
       <FindMeBtn />
+      <Profile />
       <Suspense fallback={<div>경로를 불러오는 중</div>}>
         <MapClient />
       </Suspense>

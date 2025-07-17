@@ -3,7 +3,12 @@
 const nextConfig = {
   /* config options here */
   images: {
-    domains: ['search.pstatic.net', 'example.com', 'imgnews.naver.net'],
+    domains: [
+      'search.pstatic.net',
+      'example.com',
+      'imgnews.naver.net',
+      'lh3.googleusercontent.com',
+    ],
   },
 }
 

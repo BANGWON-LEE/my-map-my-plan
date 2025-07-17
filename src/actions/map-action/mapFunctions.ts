@@ -285,3 +285,18 @@ export const setWalkPolyLine = (
     map: map,
   })
 }
+
+export function getMyLocation(position: GeolocationPosition) {
+  const map = onLoadMap(position)
+
+  const location = new naver.maps.LatLng(
+    position.coords.latitude,
+    position.coords.longitude
+  )
+
+  naver.maps.Event.once(map, 'init', () => {
+    map.setCenter(location)
+  })
+  // infoMark.open(map, location)
+  myMarker(map, position)
+}

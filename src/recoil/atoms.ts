@@ -1,6 +1,7 @@
 import { initialPlaceObj } from '@/data/constants'
 import { SearchPlaceType } from '@/type/marker'
 import { locAtomType, placeDistanceType } from '@/type/route'
+import { UserInfoType } from '@/type/user'
 import { atom } from 'recoil'
 
 export const startLocAtom = atom<locAtomType>({
@@ -82,4 +83,14 @@ export const placeDistanceAtom = atom<placeDistanceType>({
 export const routeMethodAtom = atom<string>({
   key: 'recoil/atom/routeMethodAtom',
   default: '',
+})
+
+export const userInfoAtom = atom<UserInfoType>({
+  key: 'recoil/atom/routeMethodAtom',
+  default: {
+    uid: '',
+    displayName: '',
+    email: '',
+    photoURL: '',
+  },
 })

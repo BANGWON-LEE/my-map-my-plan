@@ -26,8 +26,10 @@ export default function LogoTextField(props: onClickPropsKeyBoadEventType) {
         placeholder="검색어를 입력하세요"
         className="outline-0 w-5/7 text-2xl font-bold"
       />
-      <div className="w-[6rem] h-full">
-        <SearchButtonV1 onClick={() => onClick(text)} />
+      <div className="w-[6rem] h-full content-center">
+        <div className="w-[3rem] h-[3rem]">
+          <SearchButtonV1 onClick={() => onClick(text)} />
+        </div>
       </div>
     </div>
   )
