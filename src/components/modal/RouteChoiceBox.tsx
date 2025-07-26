@@ -43,22 +43,22 @@ export default function RouteChoiceBox(props: {
     polyLine: (map: naver.maps.Map, path: [[number, number]]) => void,
     method: string
   ) {
+    setRoutePathSignal(false)
     const position = {
       x: goalInfoState.goal.path.x,
       y: goalInfoState.goal.path.y,
     }
 
     const map = onLoadRouteMap(position)
-    setRoutePathSignal(false)
+    setCategoryState(placeListModalCategory.route)
     polyLine(map, path.path)
     startMarker(map, startInfoState.start.path)
-    goalMarker(map, goalInfoState.goal.path)
-    setCategoryState(placeListModalCategory.route)
     setStartSummaryState({
       distance: path.summary.totalDistance,
       duration: path.summary.totalTime * 1000,
       method: method,
     })
+    goalMarker(map, goalInfoState.goal.path)
     setOpenPlaceListModal(true)
   }
 

@@ -40,14 +40,14 @@ export default function RouteHistoryChoiceBox(props: {
   goalInfoState: goalInfoType
   routeBtnStatus: boolean
   index?: number
-  setRouteDistanceArr: SetState<placeDistanceType[]>
+  setPlaceDistanceInfoArr: SetState<placeDistanceType[]>
 }) {
   const {
     startInfoState,
     goalInfoState,
     routeBtnStatus,
     index,
-    setRouteDistanceArr,
+    setPlaceDistanceInfoArr,
   } = props
 
   const [, setStartSummaryState] = useRecoilState(startLocSummaryAtom)
@@ -183,7 +183,7 @@ export default function RouteHistoryChoiceBox(props: {
 
   function saveAddRoute(
     index: number = 0,
-    setRouteDistanceArr: SetState<placeDistanceType[]>
+    setPlaceDistanceInfoArr: SetState<placeDistanceType[]>
   ) {
     const routeData = {
       start: startInfoState.start.name,
@@ -194,7 +194,9 @@ export default function RouteHistoryChoiceBox(props: {
       method: startSummaryState.method,
     }
 
-    setRouteDistanceArr((prev: placeDistanceType[]) => {
+    console.log('saveRoute Signal')
+
+    setPlaceDistanceInfoArr((prev: placeDistanceType[]) => {
       const routeArr = [...prev]
       routeArr.splice(index, 0, routeData)
       return routeArr
@@ -257,7 +259,7 @@ export default function RouteHistoryChoiceBox(props: {
               </div>
             </div>
             <RouteAddBtnField
-              save={() => saveAddRoute(index, setRouteDistanceArr)}
+              save={() => saveAddRoute(index, setPlaceDistanceInfoArr)}
               prev={() => movePrev(setMovingStage)}
               routeTypeState={''}
               routeBtnStatus={false}

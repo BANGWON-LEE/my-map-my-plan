@@ -14,7 +14,7 @@ export default function UserProfileBtn(props: {
     >
       <Image
         src={photoURL}
-        alt="마이맵 마이플랜 유저 프로필"
+        alt="마이맵 마이플랜 유저 프로필 로그인"
         width={100}
         height={100}
         style={{

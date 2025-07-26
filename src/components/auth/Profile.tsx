@@ -1,9 +1,9 @@
 import GuestProfileBtn from '../common/button/GuestProfileBtn'
 import GuestMenuBox from './GuestMenuBox'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import UserProfileBtn from '../common/button/UserProfileBtn'
 import UserMenuBox from './UserMenuBox'
-import { useRecoilValue } from 'recoil'
+import { useRecoilState } from 'recoil'
 import { userInfoAtom } from '@/recoil/atoms'
 import { UserInfoType } from '@/type/user'
 
@@ -14,11 +14,18 @@ export default function Profile() {
     setIsProfileOpen(!isProfileOpen)
   }
 
-  const userGlobalInfo = useRecoilValue<UserInfoType>(userInfoAtom)
+  const [userGlobalInfo, setUserGlobalInfo] =
+    useRecoilState<UserInfoType>(userInfoAtom)
 
   // const userInfo = useRecoilValue<UserInfoType>(userInfoAtom)
 
-  // console.log('userInfo', userInfo)
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user') || '{}')
+
+    if (user) {
+      setUserGlobalInfo(user)
+    }
+  }, [])
 
   return (
     <div className="z-10  absolute top-2 left-6 ">

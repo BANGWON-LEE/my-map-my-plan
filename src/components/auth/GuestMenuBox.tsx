@@ -55,14 +55,10 @@ export default function GuestMenuBox() {
       // 이미 가입한 이력이 있을 경우
       accessService(userData.uid)
       setUserInfo(userData)
-      // onLoadMap()
-      // navigator.geolocation.getCurrentPosition(getMyLocation)
     } else if (!userInfoStatus) {
       // 가입한 경우
       saveUserInfo(userData)
       setUserInfo(userData)
-
-      // navigator.geolocation.getCurrentPosition(getMyLocation)
     }
   }
 

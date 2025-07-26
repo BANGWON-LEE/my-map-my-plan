@@ -18,8 +18,6 @@ import {
 import { routeGoalSelector, routeStartSelector } from '@/recoil/selector'
 import { initialPlaceObj, placeListModalCategory } from '@/data/constants'
 import RouteSpinner from '../common/loading/RouteSpinner'
-// import { useEffect } from 'react'
-// import { routeSelectorType } from '@/type/marker'
 
 export default function PlaceRouteComponent() {
   const placeTextStyle =
@@ -41,19 +39,37 @@ export default function PlaceRouteComponent() {
     startInfoState: locAtomType,
     goalInfoState: locAtomType
   ): void {
+    // if (startInfoState.name === '' || goalInfoState.name === '') return
+
     const choicedPlan =
       planHistoryList[planHistoryList.length - 1]?.name === startInfoState.name
         ? [goalInfoState]
         : [startInfoState, goalInfoState]
 
+    // setRecoilState(prev => {
+    //   const isDuplicate = prev.some(item => item.id === newData.id) // 또는 주소 비교
+    //   return isDuplicate ? prev : [...prev, newData]
+    // })
+
     setPlanHistoryList(prev => [...prev, ...choicedPlan])
-    setPlaceDistanceInfo({
+
+    const placeDistanceObj = {
       start: startInfoState.name,
       goal: goalInfoState.name,
       distance: convertGetKm(startSummaryState.distance),
       hour: getHourTimeMinTimeFormat(startSummaryState.duration).hours,
       minutes: getHourTimeMinTimeFormat(startSummaryState.duration).minutes,
       method: startSummaryState.method,
+    }
+
+    setPlaceDistanceInfo(prev => {
+      const isDuplicate = prev.some(item => item.start === '')
+
+      if (isDuplicate) {
+        return [placeDistanceObj]
+      } else {
+        return [...prev, placeDistanceObj]
+      }
     })
     setStartInfoState({
       start: goalInfoState,
@@ -68,8 +84,6 @@ export default function PlaceRouteComponent() {
   const placeCheck = goalInfoState.goal.address !== ''
 
   const routePathSignal = useRecoilValue(signalRouteStateAtom)
-
-  console.log('spiner', routePathSignal)
 
   return (
     <section className="w-[33em] h-full mt-8 mx-auto my-5 pb-5 grid items-start border-b-1 border-b-gray-200">
@@ -91,12 +105,6 @@ export default function PlaceRouteComponent() {
                 <span> | </span>
                 <span>{startInfoState.start.roadAddress}</span>
               </div>
-              {/* <div className="mb-2">
-                <textarea
-                  placeholder="메모를 작성해주세요"
-                  className="w-[27rem] h-[4rem] border-2 resize-none"
-                />
-              </div> */}
             </div>
             <div></div>
           </div>

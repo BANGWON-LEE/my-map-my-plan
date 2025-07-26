@@ -1,16 +1,18 @@
 'use client'
 
 import { placeDistanceAtom, setPlanHistoryListAtom } from '@/recoil/atoms'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 // import Draggable from 'react-draggable'
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { useRecoilState } from 'recoil'
 import RouteHistoryComponent from './RouteHistoryComponent'
-import PlaceHistorySaveBtn from '../maps/PlanHistorySaveBtn'
+// import PlaceHistorySaveBtn from '../maps/PlanHistorySaveBtn'
 import { RouteDistanceComponent } from './RouteDistanceComponent'
-import { placeDistanceType } from '@/type/route'
+import { locAtomType, placeDistanceType } from '@/type/route'
 import RouteHistoryChoiceBox from './RouteHistoryChoiceBox'
 import CalandarBox from '../common/calandar/CalandarBox'
 import BlueRoundedBtnV1 from '../common/button/BlueRoundedBtnV1'
+import { db } from '@/firebase/firebase'
+import { doc, setDoc } from 'firebase/firestore'
 // import { RouteDistanceComponent } from './RouteDistanceComponent'
 // import { placeDistanceType } from '@/type/route'
 
@@ -30,33 +32,19 @@ export default function RouteHistoryModal() {
     setPlanHistoryList(filterPlace)
   }
 
-  const placeDistanceInfo = useRecoilValue(placeDistanceAtom)
-
-  //   const routeDistanceArr: placeDistanceType[] = []
-  const [routeDistanceArr, setRouteDistanceArr] = useState<placeDistanceType[]>(
-    []
-  )
-
-  function setDistanceArr(placeDistanceInfo: placeDistanceType) {
-    setRouteDistanceArr(prev => [...prev, placeDistanceInfo])
-  }
-
-  useEffect(() => {
-    if (placeDistanceInfo) {
-      setDistanceArr(placeDistanceInfo)
-    }
-  }, [placeDistanceInfo])
+  const [placeDistanceInfoArr, setPlaceDistanceInfoArr] =
+    useRecoilState(placeDistanceAtom)
 
   function updateDistanceArr(
     // routeDistanceArr: placeDistanceType[],
-    placeDistanceInfo: placeDistanceType[]
+    placeDistanceInfoArr: placeDistanceType[]
   ) {
     // routeDistanceArr.length = 0
-    setRouteDistanceArr(placeDistanceInfo)
+    setPlaceDistanceInfoArr(placeDistanceInfoArr)
   }
 
   function removeDistance(placeName: string) {
-    const filterDistanceArr = routeDistanceArr.filter(
+    const filterDistanceArr = placeDistanceInfoArr.filter(
       distance => distance.start !== placeName && distance.goal !== placeName
     )
 
@@ -70,8 +58,8 @@ export default function RouteHistoryModal() {
 
   function checkRouteDistanceArr(placeName: string) {
     return (
-      routeDistanceArr.length > 0 &&
-      routeDistanceArr.find(el => el.start === placeName)
+      placeDistanceInfoArr.length > 0 &&
+      placeDistanceInfoArr.find(el => el.start === placeName)
     )
   }
 
@@ -80,6 +68,40 @@ export default function RouteHistoryModal() {
   }
 
   const [planDate, setPlanDate] = useState<string | string[]>('')
+
+  async function setPlanLog(
+    planDate: string,
+    planHistoryList: locAtomType[],
+    placeDistanceInfoArr: placeDistanceType[]
+  ) {
+    const planDateCheck = planDate === '' || planDate === undefined
+    const planHistoryListCheck =
+      planHistoryList.length < 1 ||
+      placeDistanceInfoArr.length < 1 ||
+      planHistoryList.length - 1 !== placeDistanceInfoArr.length
+
+    if (planDateCheck || planHistoryListCheck)
+      return alert('날짜 및 계획을 확인해주세요')
+    const user = JSON.parse(localStorage.getItem('user') || '{}')
+
+    // await setDoc(doc(db, 'plan', user.uid + planDate), {
+    //   name: user.displayName,
+    //   email: user.email,
+    //   plan: {
+    //     date: planDate,
+    //     place: planHistoryList,
+    //     distance: placeDistanceInfoArr,
+    //   },
+    //   createdAt: new Date().toDateString(),
+    // })
+    //   .then(() => {
+    //     alert('저장되었습니다')
+    //   })
+    //   .catch(error => {
+    //     console.log('error 발생', error)
+    //     alert('저장되지 않았습니다. 관리자에게 문의해주세요')
+    //   })
+  }
 
   return (
     <div className="fixed right-[0rem] z-10 w-[27rem] bg-[#fff]   h-[85rem] ">
@@ -90,7 +112,13 @@ export default function RouteHistoryModal() {
         <div>
           <BlueRoundedBtnV1
             text={'저장'}
-            onClick={() => console.log('저장')}
+            onClick={() =>
+              setPlanLog(
+                planDate as string,
+                planHistoryList,
+                placeDistanceInfoArr
+              )
+            }
             btnPosition={''}
             disabled={false}
           />
@@ -107,8 +135,8 @@ export default function RouteHistoryModal() {
             />
             {checkRouteDistanceArr(place.name) && (
               <RouteDistanceComponent
-                // placeDistanceInfo={routeDistanceMatched}
-                placeDistanceInfo={
+                // placeDistanceInfoArr={routeDistanceMatched}
+                placeDistanceInfoArr={
                   checkRouteDistanceArr(place.name) as placeDistanceType
                 }
               />
@@ -122,13 +150,13 @@ export default function RouteHistoryModal() {
                   goalInfoState={{ goal: planHistoryList[index + 1] }}
                   routeBtnStatus={false}
                   index={index}
-                  setRouteDistanceArr={setRouteDistanceArr}
+                  setPlaceDistanceInfoArr={setPlaceDistanceInfoArr}
                 />
               )}
           </>
         ))}
       </div>
-      <PlaceHistorySaveBtn />
+      {/* <PlaceHistorySaveBtn /> */}
     </div>
   )
 }

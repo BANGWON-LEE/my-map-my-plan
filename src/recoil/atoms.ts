@@ -68,16 +68,18 @@ export const setPlanHistoryListAtom = atom<locAtomType[]>({
   default: [],
 })
 
-export const placeDistanceAtom = atom<placeDistanceType>({
+export const placeDistanceAtom = atom<placeDistanceType[]>({
   key: 'recoil/atom/placeDistanceAtom',
-  default: {
-    start: '',
-    goal: '',
-    distance: 0,
-    hour: 0,
-    minutes: 0,
-    method: '',
-  },
+  default: [
+    {
+      start: '',
+      goal: '',
+      distance: 0,
+      hour: 0,
+      minutes: 0,
+      method: '',
+    },
+  ],
 })
 
 export const routeMethodAtom = atom<string>({
@@ -86,7 +88,7 @@ export const routeMethodAtom = atom<string>({
 })
 
 export const userInfoAtom = atom<UserInfoType>({
-  key: 'recoil/atom/routeMethodAtom',
+  key: 'recoil/atom/userInfoAtom',
   default: {
     uid: '',
     displayName: '',
