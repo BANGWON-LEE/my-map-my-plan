@@ -23,7 +23,7 @@ export default async function getPathDriving(
 
   const resultArr = tMapFormatSpreadPath(carPath)
 
-  console.log('result carPath', resultArr)
+  // console.log('result carPath', resultArr)
 
   return res
     .status(200)

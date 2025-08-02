@@ -12,12 +12,14 @@ export const startLocAtom = atom<locAtomType>({
 export const startLocSummaryAtom = atom<{
   distance: number
   duration: number
+  pathArr: number[][]
   method: string
 }>({
   key: 'recoil/atom/startLocSummary',
   default: {
     distance: 0,
     duration: 0,
+    pathArr: [],
     method: '',
   },
 })

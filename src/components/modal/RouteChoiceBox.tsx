@@ -54,6 +54,7 @@ export default function RouteChoiceBox(props: {
     polyLine(map, path.path)
     startMarker(map, startInfoState.start.path)
     setStartSummaryState({
+      pathArr: path.path,
       distance: path.summary.totalDistance,
       duration: path.summary.totalTime * 1000,
       method: method,

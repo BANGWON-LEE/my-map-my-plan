@@ -2,16 +2,25 @@
 
 import { getMyLocation } from '@/actions/map-action/mapFunctions'
 import { auth } from '@/firebase/firebase'
+import { userInfoAtom } from '@/recoil/atoms'
+import { UserInfoType } from '@/type/user'
 import { signOut } from 'firebase/auth'
 import React from 'react'
+import { useRecoilState } from 'recoil'
 
-export default function UserMenuBox() {
+export default function UserMenuBox(props: { handleUserModal: () => void }) {
+  const { handleUserModal } = props
+
   const userInfo = JSON.parse(localStorage.getItem('user') || '{}')
+
+  const [, setUserGlobalInfo] = useRecoilState<UserInfoType>(userInfoAtom)
 
   async function logoutUser() {
     await signOut(auth).then(() => {
       localStorage.removeItem('user')
       navigator.geolocation.getCurrentPosition(getMyLocation)
+      setUserGlobalInfo({ uid: '', displayName: '', email: '', photoURL: '' })
+      handleUserModal()
     })
     // console.log('userStatus', userStatus)
     // userStatus.then(() => {

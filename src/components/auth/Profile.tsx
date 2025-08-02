@@ -21,15 +21,20 @@ export default function Profile() {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user') || '{}')
-
     if (user) {
       setUserGlobalInfo(user)
     }
   }, [])
 
+  const userLoginCheck =
+    Object.values(userGlobalInfo).every(value => value === '') ||
+    Object.values(userGlobalInfo).length === 0
+
+  console.log('userLoginCheck', !userLoginCheck === false)
+
   return (
     <div className="z-10  absolute top-2 left-6 ">
-      {userGlobalInfo.photoURL === '' ? (
+      {userLoginCheck ? (
         <GuestProfileBtn
           onClick={() => handleUserModal()}
           btnPosition={''}
@@ -42,8 +47,12 @@ export default function Profile() {
           photoURL={userGlobalInfo.photoURL || ''}
         />
       )}
-      {isProfileOpen && userGlobalInfo.uid === '' && <GuestMenuBox />}
-      {isProfileOpen && userGlobalInfo.uid && <UserMenuBox />}
+      {isProfileOpen && userLoginCheck && (
+        <GuestMenuBox handleUserModal={handleUserModal} />
+      )}
+      {isProfileOpen && !userLoginCheck && (
+        <UserMenuBox handleUserModal={handleUserModal} />
+      )}
     </div>
   )
 }

@@ -84,23 +84,23 @@ export default function RouteHistoryModal() {
       return alert('날짜 및 계획을 확인해주세요')
     const user = JSON.parse(localStorage.getItem('user') || '{}')
 
-    // await setDoc(doc(db, 'plan', user.uid + planDate), {
-    //   name: user.displayName,
-    //   email: user.email,
-    //   plan: {
-    //     date: planDate,
-    //     place: planHistoryList,
-    //     distance: placeDistanceInfoArr,
-    //   },
-    //   createdAt: new Date().toDateString(),
-    // })
-    //   .then(() => {
-    //     alert('저장되었습니다')
-    //   })
-    //   .catch(error => {
-    //     console.log('error 발생', error)
-    //     alert('저장되지 않았습니다. 관리자에게 문의해주세요')
-    //   })
+    await setDoc(doc(db, 'plan', user.uid + planDate), {
+      name: user.displayName,
+      email: user.email,
+      plan: {
+        date: planDate,
+        place: planHistoryList,
+        distance: placeDistanceInfoArr,
+      },
+      createdAt: new Date().toDateString(),
+    })
+      .then(() => {
+        alert('저장되었습니다')
+      })
+      .catch(error => {
+        console.log('error 발생', error)
+        alert('저장되지 않았습니다. 관리자에게 문의해주세요')
+      })
   }
 
   return (

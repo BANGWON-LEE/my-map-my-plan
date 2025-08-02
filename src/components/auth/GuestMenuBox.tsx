@@ -10,7 +10,9 @@ import { userInfoAtom } from '@/recoil/atoms'
 import { useRecoilState } from 'recoil'
 // import { getMyLocation } from '@/actions/map-action/mapFunctions'
 
-export default function GuestMenuBox() {
+export default function GuestMenuBox(props: { handleUserModal: () => void }) {
+  const { handleUserModal } = props
+
   async function checkUserInfo(userId: string): Promise<boolean> {
     const userRef = doc(db, 'users', userId)
     const userCheck = await getDoc(userRef)
@@ -78,6 +80,7 @@ export default function GuestMenuBox() {
 
     actionUserUpdate(userInfoStatus, userData.user)
     getUserInfo()
+    handleUserModal()
   }
 
   return (

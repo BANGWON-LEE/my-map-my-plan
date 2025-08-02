@@ -82,6 +82,7 @@ export default function RouteHistoryChoiceBox(props: {
     goalMarker(map, goalInfoState.goal.path)
     setCategoryState(placeListModalCategory.route)
     setStartSummaryState({
+      pathArr: path.path,
       distance: path.summary.totalDistance,
       duration: path.summary.totalTime * 1000,
       method: method,
