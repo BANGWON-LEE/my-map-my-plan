@@ -23,7 +23,6 @@ export default function PlaceListImg(props: placeListImgType) {
       {locImg.length > 0 &&
         locImg[index]?.value.map(el => (
           <PlaceImg key={el.link} el={el.thumbnail} />
-          //   <div>www</div>
         ))}
     </>
   )
