@@ -1,3 +1,4 @@
+'use client'
 import GuestProfileBtn from '../common/button/GuestProfileBtn'
 import GuestMenuBox from './GuestMenuBox'
 import { useEffect, useState } from 'react'
