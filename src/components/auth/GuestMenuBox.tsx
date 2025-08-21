@@ -8,6 +8,8 @@ import { doc, getDoc, setDoc } from 'firebase/firestore'
 import { UserInfoType } from '@/type/user'
 import { userInfoAtom } from '@/recoil/atoms'
 import { useRecoilState } from 'recoil'
+import Cookies from 'js-cookie'
+
 // import { getMyLocation } from '@/actions/map-action/mapFunctions'
 
 export default function GuestMenuBox(props: { handleUserModal: () => void }) {
@@ -40,8 +42,6 @@ export default function GuestMenuBox(props: { handleUserModal: () => void }) {
     )
   }
 
-  // const [, setUserInfo] = useRecoilState<UserInfoType>(userInfoAtom)
-
   function setUserInfo(user: UserInfoType) {
     const userInfo = {
       uid: user.uid,
@@ -50,6 +50,7 @@ export default function GuestMenuBox(props: { handleUserModal: () => void }) {
       photoURL: user.photoURL,
     }
     localStorage.setItem('user', JSON.stringify(userInfo))
+    Cookies.set('user', JSON.stringify(userInfo), { expires: 7, path: '/' })
   }
 
   function actionUserUpdate(userInfoStatus: boolean, userData: UserInfoType) {

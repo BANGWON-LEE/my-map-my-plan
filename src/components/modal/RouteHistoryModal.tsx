@@ -85,6 +85,7 @@ export default function RouteHistoryModal() {
     const user = JSON.parse(localStorage.getItem('user') || '{}')
 
     await setDoc(doc(db, 'plan', user.uid + planDate), {
+      uid: user.uid,
       name: user.displayName,
       email: user.email,
       plan: {

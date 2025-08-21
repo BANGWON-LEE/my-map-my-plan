@@ -1,8 +1,14 @@
 import Image from 'next/image'
 import ArrowRight from '../../../assets/arrowRight.png'
+import { DocumentData } from 'firebase/firestore'
+
 // import BlueRoundedBtnV1 from '../button/BlueRoundedBtnV1'
 
-export default function LogCard() {
+export default function LogCard(props: { doc: DocumentData[] }) {
+  const { doc } = props
+
+  console.log('받은 거 확인', doc)
+
   return (
     <div className="w-[60rem] mx-auto ">
       <div className="border-2 border-gray-200 rounded-lg">
