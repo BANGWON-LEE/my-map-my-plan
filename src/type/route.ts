@@ -88,6 +88,17 @@ export type startInfoType = {
   }
 }
 
+export type infoType = {
+  name: number
+  start: {
+    name: string
+    path: { x: number; y: number }
+    address: string
+    roadAddress: string
+    category: string
+  }
+}
+
 export type goalInfoType = {
   goal: {
     name: string

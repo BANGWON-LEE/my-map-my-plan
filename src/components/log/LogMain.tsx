@@ -10,7 +10,7 @@ async function getPlanLog(uid?: string) {
   const snap = await getDocs(q)
   console.log('snap size', snap.size)
   snap.docs.forEach(d => console.log(d.id, '=>', d.data()))
-  return snap.docs.map(d => ({ id: d.id, ...d.data() }))
+  return snap.docs.map(d => ({ ...d.data() }))
 }
 
 export default async function LogMain() {
@@ -18,9 +18,9 @@ export default async function LogMain() {
   const user = raw ? JSON.parse(decodeURIComponent(raw)) : null
   console.log('확인해보자고', user)
 
-  if (!user?.uid) {
-    return <div>로그인이 필요합니다.</div>
-  }
+  // if (!user?.uid) {
+  //   return <div>로그인이 필요합니다.</div>
+  // }
 
   const items = await getPlanLog(user?.uid)
   console.log('아이템', items)
@@ -28,9 +28,10 @@ export default async function LogMain() {
   return (
     <div className="w-full h-full">
       <div className="m-auto  w-[70rem] h-auto">
-        <div className="my-16">
+        <div className="my-16 min-h-[60em]">
           {/* <LogCard /> */}
-          {items.length > 0 && items.map(doc => <LogCard doc={doc} />)}
+          {items.length > 0 &&
+            items.map(doc => <LogCard key={doc.id} doc={doc.plan} />)}
         </div>
       </div>
     </div>
