@@ -2,13 +2,6 @@ import LogCard from '../common/card/LogCard'
 
 import { cookies } from 'next/headers'
 
-// async function getPlanLog(uid?: string) {
-//   if (!uid) return []
-//   const q = query(collection(db, 'plan'), where('uid', '==', uid))
-//   const snap = await getDocs(q)
-//   return snap.docs.map(d => ({ ...d.data() }))
-// }
-
 import { adminDB } from '@/firebase/firebaseAdmin'
 
 export async function getPlanLog(uid?: string) {

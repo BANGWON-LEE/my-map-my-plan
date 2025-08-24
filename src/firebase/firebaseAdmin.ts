@@ -1,4 +1,4 @@
-import 'server-only' // 우발적 클라이언트 임포트 방지(선택)
+// import 'server-only' // 우발적 클라이언트 임포트 방지(선택)
 import { getApps, initializeApp, cert } from 'firebase-admin/app'
 import { getFirestore } from 'firebase-admin/firestore'
 
