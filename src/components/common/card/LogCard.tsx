@@ -8,8 +8,6 @@ import { formatDate } from '@/util/date'
 export default function LogCard(props: { doc: LogDocType }) {
   const { doc } = props
 
-  console.log('받은 거 확인', doc)
-
   return (
     <div className="w-[60rem] mx-auto my-9 ">
       <div className="border-2 border-gray-200 rounded-lg">
@@ -29,11 +27,6 @@ export default function LogCard(props: { doc: LogDocType }) {
                     <Image src={ArrowRight} alt="마이맵 마이플랜 나의 일정" />
                   </div>
                 )}
-                {/* <p className="grid items-center text-[2rem] ">• • •</p>
-              <div className="grid items-center w-[4.2rem] h-[4.2rem]">
-                <Image src={ArrowRight} alt="마이맵 마이플랜 나의 일정" />
-              </div> */}
-                {/* <p className="grid items-center text-[2rem] ">동대문</p> */}
               </div>
             ))}
           </div>

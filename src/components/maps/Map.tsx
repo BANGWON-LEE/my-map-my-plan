@@ -1,5 +1,4 @@
 'use client'
-// import { getSearchLoc } from '@/pages/api/api'
 import Header from '../layout/Header'
 import FindMeBtn from './FindMeBtn'
 import {
