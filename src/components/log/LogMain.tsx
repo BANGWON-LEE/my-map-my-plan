@@ -1,4 +1,3 @@
-import { getPlanLog } from '@/pages/api/logs/log'
 import LogCard from '../common/card/LogCard'
 
 import { cookies } from 'next/headers'
@@ -9,6 +8,15 @@ import { cookies } from 'next/headers'
 //   const snap = await getDocs(q)
 //   return snap.docs.map(d => ({ ...d.data() }))
 // }
+
+import { adminDB } from '@/firebase/firebaseAdmin'
+
+export async function getPlanLog(uid?: string) {
+  if (!uid) return []
+
+  const snap = await adminDB.collection('plan').where('uid', '==', uid).get()
+  return snap.docs.map(d => ({ ...d.data() }))
+}
 
 export default async function LogMain() {
   const raw = cookies().get('user')?.value
