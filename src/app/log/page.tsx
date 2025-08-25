@@ -1,6 +1,10 @@
 import Profile from '@/components/auth/Profile'
 import LogMain from '@/components/log/LogMain'
 
+export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export default function Log() {
   return (
     <div className="w-full h-full">
