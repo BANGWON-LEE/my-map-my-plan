@@ -3,7 +3,7 @@
 > `Next.js`, `recoil`, `PWA`, `OAuth`, `Naver Maps API`, `T Maps API`, `YouTube` 등 다양한 기술을 통합한 **실전형 포트폴리오 프로젝트**입니다.
 
 
-## 👏 최근 작업  # log page vercel 배포 이슈 (25.08.25)
+***👏 최근 작업  log page vercel 배포 이슈 (25.08.25)***
 
 **목표**
 - plan의 기록을 보여주는 log 페이지를 **서버 컴포넌트**로 구현
