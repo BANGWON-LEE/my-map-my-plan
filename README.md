@@ -3,8 +3,19 @@
 > `Next.js`, `recoil`, `PWA`, `OAuth`, `Naver Maps API`, `T Maps API`, `YouTube` 등 다양한 기술을 통합한 **실전형 포트폴리오 프로젝트**입니다.
 
 
+***👏  작업 완료 내용 plan Log를 메인 페이지에서 보여주는 작업 (25.08.26)***
 
+**목표**
+- 특정 plan을 main page에서 보여주는 작업 진행, (1차로 리스트만 보여주는 작업)
 
+**[작업내용]**
+- 원하는 plan을 선택 -> Link 태그를 사용하여 쿼리파라미터로 Firestore에서 구분하며 불러올 수 있는 key를 가져옴
+- main 페이지에서 planId(plan을 등록한 날짜와 uid를 합쳐 만든 고유 아이디) detail(메인 페이지에 접속 렌더링 될 때, detail의 'true'여부에 따라 plan list 모달창이 보여질 수 있도록 함), 이 쿼리 파라미터를 받아옴
+- planId를 가지고 firebase web sdk로 Firestore에 접근하여 특정 plan만 Get함.
+- db에서 가져온 객체의 place와 distance를 구분하여 state에 set함
+
+**[to do list]**
+- 구간 별로 지도에 이동 경로를 시각화 하는 작업 진행 예정.
         
 ***👏 최근 작업  log page vercel 배포 이슈 (25.08.25)***
 
