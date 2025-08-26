@@ -105,7 +105,9 @@ export default function Map() {
       )}
 
       {(planHistoryList.length > 0 || logDetail === 'true') && (
-        <RouteHistoryModal />
+        <Suspense fallback={<div>목록을 불러오는 중</div>}>
+          <RouteHistoryModal />
+        </Suspense>
       )}
       <FindMeBtn />
       <Profile />
