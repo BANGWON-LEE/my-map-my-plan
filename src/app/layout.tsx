@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 // import { Geist, Geist_Mono } from 'next/font/google'
 // import Main from '@/components/Main'
 import './globals.css'
-import { Analytics } from '@vercel/analytics/next'
-import RecoilRootWrapper from '@/components/wrapper/RecoilWrapper'
-import Main from '@/components/Main'
+// import { Analytics } from '@vercel/analytics/next'
+// import RecoilRootWrapper from '@/components/wrapper/RecoilWrapper'
+// import Main from '@/components/Main'
 
 // const geistSans = Geist({
 //   variable: '--font-geist-sans',
@@ -29,21 +29,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <script
+        {/* <script
           type="text/javascript"
           src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=1awovn0tlc&submodules=geocoder"
           defer
-        ></script>
+        ></script> */}
         {/* <script
           src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=EGxTk6ZG5L6VmtY26wGOf5uyXhSewdgS6rJIXvV1"
           async
         ></script> */}
       </head>
       <body className={`antialiased`}>
-        <Main>
-          <RecoilRootWrapper>{children}</RecoilRootWrapper>
-          <Analytics />
-        </Main>
+        {/* <Main> */}
+        {/* <RecoilRootWrapper>{children}</RecoilRootWrapper> */}
+        {children}
+        {/* <Analytics /> */}
+        {/* </Main> */}
       </body>
     </html>
   )
