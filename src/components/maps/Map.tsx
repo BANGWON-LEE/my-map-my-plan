@@ -104,11 +104,11 @@ export default function Map() {
         />
       )}
 
-      {(planHistoryList.length > 0 || logDetail === 'true') && (
-        <Suspense fallback={<div>목록을 불러오는 중</div>}>
+      <Suspense fallback={<div>목록을 불러오는 중</div>}>
+        {(planHistoryList.length > 0 || logDetail === 'true') && (
           <RouteHistoryModal />
-        </Suspense>
-      )}
+        )}
+      </Suspense>
       <FindMeBtn />
       <Profile />
       <Suspense fallback={<div>경로를 불러오는 중</div>}>
