@@ -79,11 +79,6 @@ export default function Map() {
     if (event.key === 'Enter') return getPlaceList(text)
   }
 
-  const searchParams = useSearchParams()
-  const logDetail = searchParams?.get('detail') === 'true' ? 'true' : 'false'
-
-  const planHistoryList = useRecoilValue(setPlanHistoryListAtom)
-
   return (
     <div className="w-full h-full">
       <Script
@@ -105,9 +100,7 @@ export default function Map() {
       )}
 
       <Suspense fallback={<div>목록을 불러오는 중</div>}>
-        {(planHistoryList.length > 0 || logDetail === 'true') && (
-          <RouteHistoryModal />
-        )}
+        <RouteHisttoryBlock />
       </Suspense>
       <FindMeBtn />
       <Profile />
@@ -115,5 +108,20 @@ export default function Map() {
         <MapClient />
       </Suspense>
     </div>
+  )
+}
+
+export function RouteHisttoryBlock() {
+  const searchParams = useSearchParams()
+  const logDetail = searchParams?.get('detail') === 'true' ? 'true' : 'false'
+
+  const planHistoryList = useRecoilValue(setPlanHistoryListAtom)
+
+  return (
+    <>
+      {(planHistoryList.length > 0 || logDetail === 'true') && (
+        <RouteHistoryModal />
+      )}
+    </>
   )
 }
