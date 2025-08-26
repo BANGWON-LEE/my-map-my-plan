@@ -24,6 +24,7 @@ import { placeListModalCategory } from '@/data/constants'
 import RouteHistoryModal from '../modal/RouteHistoryModal'
 import Script from 'next/script'
 import Profile from '../auth/Profile'
+import { useSearchParams } from 'next/navigation'
 const PlaceListModal = dynamic(() => import('../modal/PlaceListModal'), {
   ssr: false,
 })
@@ -78,6 +79,9 @@ export default function Map() {
     if (event.key === 'Enter') return getPlaceList(text)
   }
 
+  const searchParams = useSearchParams()
+  const logDetail = searchParams?.get('detail') === 'true' ? 'true' : 'false'
+
   const planHistoryList = useRecoilValue(setPlanHistoryListAtom)
 
   return (
@@ -100,7 +104,9 @@ export default function Map() {
         />
       )}
 
-      {planHistoryList.length > 0 && <RouteHistoryModal />}
+      {(planHistoryList.length > 0 || logDetail === 'true') && (
+        <RouteHistoryModal />
+      )}
       <FindMeBtn />
       <Profile />
       <Suspense fallback={<div>경로를 불러오는 중</div>}>

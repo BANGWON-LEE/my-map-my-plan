@@ -7,7 +7,7 @@ import { adminDB } from '@/firebase/firebaseAdmin'
 export async function getPlanLog(uid?: string) {
   if (!uid) return []
 
-  const snap = await adminDB.collection('plan').where('uid', '==', uid).get()
+  const snap = await adminDB.collection('plans').where('uid', '==', uid).get()
   return snap.docs.map(d => ({ ...d.data() }))
 }
 
@@ -22,7 +22,9 @@ export default async function LogMain() {
       <div className="m-auto  w-[70rem] h-auto">
         <div className="my-16 min-h-[60em]">
           {items.length > 0 &&
-            items.map(doc => <LogCard key={doc.id} doc={doc.plan} />)}
+            items.map(doc => (
+              <LogCard key={doc.id} doc={doc.plan} planId={doc.planId} />
+            ))}
         </div>
       </div>
     </div>

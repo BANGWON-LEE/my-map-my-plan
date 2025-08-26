@@ -1,7 +1,7 @@
 'use client'
 
 import { placeDistanceAtom, setPlanHistoryListAtom } from '@/recoil/atoms'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 // import Draggable from 'react-draggable'
 import { useRecoilState } from 'recoil'
 import RouteHistoryComponent from './RouteHistoryComponent'
@@ -12,7 +12,15 @@ import RouteHistoryChoiceBox from './RouteHistoryChoiceBox'
 import CalandarBox from '../common/calandar/CalandarBox'
 import BlueRoundedBtnV1 from '../common/button/BlueRoundedBtnV1'
 import { db } from '@/firebase/firebase'
-import { doc, setDoc } from 'firebase/firestore'
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from 'firebase/firestore'
+import { useSearchParams } from 'next/navigation'
 // import { RouteDistanceComponent } from './RouteDistanceComponent'
 // import { placeDistanceType } from '@/type/route'
 
@@ -20,6 +28,8 @@ export default function RouteHistoryModal() {
   const [planHistoryList, setPlanHistoryList] = useRecoilState(
     setPlanHistoryListAtom
   )
+
+  console.log('planHistoryList', planHistoryList)
 
   function removePlace(index: number, placeName: string): void {
     const choicedIndex = document.getElementById(index.toString())
@@ -56,10 +66,17 @@ export default function RouteHistoryModal() {
     removeDistance(placeName)
   }
 
-  function checkRouteDistanceArr(placeName: string) {
+  function checkRouteDistanceArr(
+    planHistoryList: locAtomType[],
+    index: number
+  ) {
     return (
       placeDistanceInfoArr.length > 0 &&
-      placeDistanceInfoArr.find(el => el.start === placeName)
+      placeDistanceInfoArr.find(
+        el =>
+          el.start === planHistoryList[index].name &&
+          el.goal === planHistoryList[index + 1]?.name
+      )
     )
   }
 
@@ -84,7 +101,7 @@ export default function RouteHistoryModal() {
       return alert('날짜 및 계획을 확인해주세요')
     const user = JSON.parse(localStorage.getItem('user') || '{}')
 
-    await setDoc(doc(db, 'plan', user.uid + planDate), {
+    await setDoc(doc(db, 'plans', user.uid + planDate), {
       uid: user.uid,
       name: user.displayName,
       email: user.email,
@@ -93,6 +110,7 @@ export default function RouteHistoryModal() {
         place: planHistoryList,
         distance: placeDistanceInfoArr,
       },
+      planId: user.uid + new Date().toISOString(),
       createdAt: new Date().toDateString(),
     })
       .then(() => {
@@ -103,6 +121,25 @@ export default function RouteHistoryModal() {
         alert('저장되지 않았습니다. 관리자에게 문의해주세요')
       })
   }
+
+  const searchParams = useSearchParams()
+
+  const planId = searchParams?.get('planId')
+  useEffect(() => {
+    async function getDetailPlanLog() {
+      if (!planId) return []
+      const q = query(collection(db, 'plans'), where('planId', '==', planId))
+      const snap = await getDocs(q)
+
+      const list = snap.docs.map(d => ({ ...d.data() }))
+      const result = list
+      console.log('데이터 디테일', result)
+      setPlanHistoryList(result[0].plan.place)
+      setPlaceDistanceInfoArr(result[0].plan.distance)
+    }
+
+    getDetailPlanLog()
+  }, [planId])
 
   return (
     <div className="fixed right-[0rem] z-10 w-[27rem] bg-[#fff]   h-[85rem] ">
@@ -134,15 +171,18 @@ export default function RouteHistoryModal() {
               index={index}
               remove={removePlaceAndDistance}
             />
-            {checkRouteDistanceArr(place.name) && (
+            {checkRouteDistanceArr(planHistoryList, index) && (
               <RouteDistanceComponent
                 // placeDistanceInfoArr={routeDistanceMatched}
                 placeDistanceInfoArr={
-                  checkRouteDistanceArr(place.name) as placeDistanceType
+                  checkRouteDistanceArr(
+                    planHistoryList,
+                    index
+                  ) as placeDistanceType
                 }
               />
             )}
-            {!checkRouteDistanceArr(place.name) &&
+            {!checkRouteDistanceArr(planHistoryList, index) &&
               checkEmptyRouteDistance(index) && (
                 <RouteHistoryChoiceBox
                   startInfoState={{

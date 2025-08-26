@@ -33,7 +33,7 @@ export interface RoutePropsType extends onClickPropsType {
 }
 
 export interface BlueRoundedBtnV1Type {
-  onClick: () => void
+  onClick?: () => void
   text: string
   btnPosition?: string
   disabled?: boolean
