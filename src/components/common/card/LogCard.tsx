@@ -15,21 +15,28 @@ export default function LogCard(props: { doc: LogDocType; planId: string }) {
         <div className="mx-12 my-6">
           <p>{formatDate(doc.date)}</p>
           <div className="w-full flex justify-between">
-            <div className="max-w-[45rem] flex justify-start overflow-x-scroll">
+            <div className="max-w-[40rem] flex justify-start overflow-x-scroll">
               {doc.place.map((loc, index) => (
-                <div
-                  key={`${loc.name}${index}`}
-                  className="flex max-w-[20em] justify-between"
-                >
-                  <p className="grid items-center text-[1.23rem] h-[5rem] ">
-                    {loc.name}
-                  </p>
-                  {doc.place.length - 1 !== index && (
-                    <div className="grid items-center w-[4.2rem] h-[5rem]">
-                      <Image src={ArrowRight} alt="마이맵 마이플랜 나의 일정" />
-                    </div>
-                  )}
-                </div>
+                <>
+                  <div
+                    key={`${loc.name}${index}`}
+                    className="flex max-w-[80px] min-w-[140px] justify-center"
+                  >
+                    <p className="w-auto grid text-center items-center text-[1.23rem] h-[5rem] ">
+                      {loc.name}
+                    </p>
+                  </div>
+                  <div>
+                    {doc.place.length - 1 !== index && (
+                      <div className="grid items-center w-[80px] h-[80px]">
+                        <Image
+                          src={ArrowRight}
+                          alt="마이맵 마이플랜 나의 일정"
+                        />
+                      </div>
+                    )}
+                  </div>
+                </>
               ))}
             </div>
             <Link href={`/?planId=${planId}&detail=true`}>
